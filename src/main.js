@@ -5,12 +5,13 @@ import PrimeVue from 'primevue/config';
 
 import '/node_modules/primeflex/primeflex.css'
 import 'primeflex/themes/primeone-light.css'
-import Lara from '@primevue/themes/lara'
+import Aura from '@primevue/themes/aura'
 
 const app = createApp(App);
+
 app.use(PrimeVue, {
     theme: {
-        preset: Lara,
+        preset: Aura,
         options: {
             prefix: 'p',
             darkModeSelector: 'white',
