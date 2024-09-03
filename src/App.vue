@@ -1,36 +1,40 @@
 <script>
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup';   // optional
-import Row from 'primevue/row';
-import Button from "primevue/button";// optional
+import Button from "primevue/button";
+import Checkbox from 'primevue/checkbox';
 
-import {tournamentListApi} from "./api/api_routes/tournament_list.js";
+import {tournamentApi} from "./api/api_routes/tournament_list.js";
 
 export default {
   data() {
     return {
-      tournaments: 'fsf',
+      tournaments: null,
+      newTournament: {
+        name: 'УРааааааа',
+        date: new Date(),
+        is_completed: false
+      },
     }
   },
   components: {
     DataTable,
     Column,
-    ColumnGroup,
-    Row,
     Button,
+    Checkbox,
   },
   methods: {
     getTournaments() {
-      tournamentListApi.getAllTournaments().then((res)=>{
-        console.log(res)
-      }).catch((err)=>{
-
+      tournamentApi.getAllTournaments().then((res)=>{
+        this.tournaments = res.data;
       })
-      // console.log("yes")
-      // this.tournaments = tournamentListApi.getAllTournaments();
-      // let z = tournamentListApi.getAllTournaments();
-      // console.log(z)
+
+      tournamentApi.createTournament(this.newTournament).then((res)=>{
+        console.log(res);
+      })
+    },
+    deleteTournament(id) {
+      tournamentApi.deleteTournament(id).then((res)=>{})
     }
   }
 };
@@ -39,8 +43,15 @@ export default {
 
 <template>
   <div class="container">
-    <Button v-on:click="getTournaments">Получить список</Button>
-    <h1>{{ tournaments }}</h1>
+    <div class="tournament-container">
+      <DataTable :value=tournaments tableStyle="min-width: 50 rem">
+        <Column field="name" header="Имя турнира"></Column>
+        <Column field="date" header="Дата"></Column>
+        <Column field="is_completed" header="Статус"></Column>
+      </DataTable>
+      <Button class="margin-5" v-on:click="getTournaments">Получить список</Button>
+      <Button class="margin-5" v-on:click="deleteTournament(1)">Удалить</Button>
+    </div>
   </div>
 </template>
 
@@ -49,9 +60,21 @@ export default {
 .container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   height: 100vh;
+  width: 25%;
+}
+
+.container {
+  display: block;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.margin-5 {
+  margin: 5px;
 }
 
 </style>
