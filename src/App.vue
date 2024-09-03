@@ -1,8 +1,9 @@
 <script>
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';
+import Row from 'primevue/row';
 import Button from "primevue/button";
-import Checkbox from 'primevue/checkbox';
 
 import {tournamentApi} from "./api/api_routes/tournament_list.js";
 
@@ -10,31 +11,51 @@ export default {
   data() {
     return {
       tournaments: null,
+      selectedTournament: null,
+      current_id: 0,
       newTournament: {
-        name: 'УРааааааа',
+        name: "test",
         date: new Date(),
         is_completed: false
       },
     }
   },
+
   components: {
     DataTable,
     Column,
     Button,
-    Checkbox,
+    Row,
+    ColumnGroup,
   },
-  methods: {
-    getTournaments() {
-      tournamentApi.getAllTournaments().then((res)=>{
-        this.tournaments = res.data;
-      })
 
+  methods: {
+    createNewTournament() {
       tournamentApi.createTournament(this.newTournament).then((res)=>{
         console.log(res);
       })
     },
-    deleteTournament(id) {
-      tournamentApi.deleteTournament(id).then((res)=>{})
+    getTournaments() {
+      tournamentApi.getAllTournaments().then((res)=>{
+        this.tournaments = res.data;
+      })
+    },
+    deleteTournament() {
+      tournamentApi.deleteTournament(this.current_id).then((res)=>{})
+    },
+    onRowSelected(event) {
+      console.log(event.data.id);
+      this.current_id = event.data.id;
+    }
+  },
+
+  mounted() {
+    this.$store.dispatch("tournamentList/getAllTournaments");
+  },
+
+  computed: {
+    tournamentList() {
+      return this.$store.getters["tournamentList/tournamentList"];
     }
   }
 };
@@ -44,22 +65,23 @@ export default {
 <template>
   <div class="container">
     <div class="tournament-container">
-      <DataTable :value=tournaments tableStyle="min-width: 50 rem">
+      <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id" :metaKeySelection="true"
+                 @rowSelect="onRowSelected" tableStyle="min-width: 50rem">
         <Column field="name" header="Имя турнира"></Column>
         <Column field="date" header="Дата"></Column>
         <Column field="is_completed" header="Статус"></Column>
       </DataTable>
-      <Button class="margin-5" v-on:click="getTournaments">Получить список</Button>
-      <Button class="margin-5" v-on:click="deleteTournament(1)">Удалить</Button>
+      <Button class="margin-5" v-on:click="deleteTournament">Удалить</Button>
+      <Button class="margin-5" v-on:click="createNewTournament">Добавить нового</Button>
     </div>
   </div>
 </template>
 
 <style scoped>
 
-.container {
+.tournament-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   height: 100vh;
