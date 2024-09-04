@@ -72,6 +72,7 @@ export default {
       <div class="button-container">
         <Button class="btn" v-on:click="deleteTournament">Удалить</Button>
         <Button class="btn" v-on:click="createNewTournament">Создать</Button>
+        <Button class="btn" v-on:click="createNewTournament">Создать</Button>
       </div>
 
     </div>
