@@ -10,7 +10,6 @@ import {tournamentApi} from "./api/api_routes/tournament_list.js";
 export default {
   data() {
     return {
-      tournaments: null,
       selectedTournament: null,
       current_id: 0,
       newTournament: {
@@ -31,21 +30,17 @@ export default {
 
   methods: {
     createNewTournament() {
-      tournamentApi.createTournament(this.newTournament).then((res)=>{
-        console.log(res);
-      })
-    },
-    getTournaments() {
-      tournamentApi.getAllTournaments().then((res)=>{
-        this.tournaments = res.data;
-      })
+      this.$store.dispatch("tournamentList/addNewTournament", this.newTournament);
     },
     deleteTournament() {
-      tournamentApi.deleteTournament(this.current_id).then((res)=>{})
+      this.$store.dispatch("tournamentList/deleteTournament", this.current_id);
     },
     onRowSelected(event) {
       console.log(event.data.id);
       this.current_id = event.data.id;
+    },
+    onRowUnselected(event) {
+      this.current_id = null;
     }
   },
 
@@ -55,7 +50,7 @@ export default {
 
   computed: {
     tournamentList() {
-      return this.$store.getters["tournamentList/tournamentList"];
+      return this.$store.getters['tournamentList/tournamentList'];
     }
   }
 };
@@ -64,15 +59,21 @@ export default {
 
 <template>
   <div class="container">
+
     <div class="tournament-container">
+
       <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id" :metaKeySelection="true"
-                 @rowSelect="onRowSelected" tableStyle="min-width: 50rem">
+                 @rowSelect="onRowSelected" @rowUnselect="onRowUnselected" tableStyle="min-width: 50rem">
         <Column field="name" header="Имя турнира"></Column>
         <Column field="date" header="Дата"></Column>
         <Column field="is_completed" header="Статус"></Column>
       </DataTable>
-      <Button class="margin-5" v-on:click="deleteTournament">Удалить</Button>
-      <Button class="margin-5" v-on:click="createNewTournament">Добавить нового</Button>
+
+      <div class="button-container">
+        <Button class="btn" v-on:click="deleteTournament">Удалить</Button>
+        <Button class="btn" v-on:click="createNewTournament">Создать</Button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -82,23 +83,32 @@ export default {
 .tournament-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: normal;
   align-items: flex-start;
   height: 100vh;
   width: 25%;
 }
 
 .container {
-  display: block;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-content: flex-start;
 }
 
-.margin-5 {
-  margin: 5px;
+.button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
+.btn {
+  margin-left: 5px;
+}
 </style>
 
 

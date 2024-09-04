@@ -5,19 +5,21 @@ import PrimeVue from 'primevue/config';
 import {store} from './store'
 
 import '/node_modules/primeflex/primeflex.css'
-import 'primeflex/themes/primeone-light.css'
-import Aura from '@primevue/themes/aura'
+import Nora from '@primevue/themes/nora'
 
 
 const app = createApp(App);
 
 app.use(PrimeVue, {
     theme: {
-        preset: Aura,
+        preset: Nora,
         options: {
             prefix: 'p',
-            darkModeSelector: 'white',
-            cssLayer: false
+            darkModeSelector: '.ny-dark-mode',
+            cssLayer: {
+                name: 'primevue',
+                order: 'tailwind-base, primevue, tailwind-utilities'
+            }
         }
     }
 });
