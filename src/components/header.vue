@@ -1,10 +1,19 @@
 <script>
 
 import Button from "primevue/button";
+import Dialog from 'primevue/dialog';
+import InputText from "primevue/inputtext";
 
 export default {
+  data: function () {
+    return {
+      is_visible: false,
+    }
+  },
   components: {
     Button,
+    Dialog,
+    InputText,
   }
 }
 
@@ -13,7 +22,7 @@ export default {
 <template>
 
 <header>
-  <div class="flex overflow-auto bg-cyan-100 shadow-5">
+  <div class="flex justify-content-between overflow-auto bg-cyan-100 shadow-5">
     <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
       <img class="w-2rem mr-1" src="../assets/icon/icon.ico" alt="" />
       <img class="w-8rem" src="../assets/icon/text-logo.png" alt="" />
@@ -22,9 +31,13 @@ export default {
       <div class="flag shadow-3"></div>
     </div>
     <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
-      <Button class="px-3 py-2 shadow-3 transition-ease-in-out border-round-sm m-auto">
+      <Button class="px-3 py-2 shadow-3 transition-ease-in-out border-round-sm" @click="is_visible = true">
         <span class="pi pi-user"></span>Авторизация
       </Button>
+
+        <!-- Диалоговое окно авторизации -->
+
+        <!---------------------------------->
     </div>
   </div>
 </header>
@@ -38,7 +51,7 @@ export default {
   height: 60px;
   position: relative;
   background: #138808;
-  transform: skew(-45deg);
+  transform: skew(-35deg);
 }
 
 .flag::before {
@@ -62,5 +75,4 @@ export default {
   background-color: whitesmoke;
 }
 /******************************/
-
 </style>
