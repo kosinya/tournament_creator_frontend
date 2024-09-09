@@ -4,8 +4,10 @@ import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row';
 import Button from "primevue/button";
-
+import NewTournament from "./components/Create_tournament_form.vue";
+import confirmPopup from "./components/ConfirmPopup.vue";
 import {tournamentApi} from "./api/api_routes/tournament_list.js";
+
 
 export default {
   data() {
@@ -15,7 +17,7 @@ export default {
       newTournament: {
         name: "test",
         date: new Date(),
-        is_completed: false
+        is_completed: true
       },
     }
   },
@@ -26,6 +28,8 @@ export default {
     Button,
     Row,
     ColumnGroup,
+    NewTournament,
+    confirmPopup
   },
 
   methods: {
@@ -41,7 +45,7 @@ export default {
     },
     onRowUnselected(event) {
       this.current_id = null;
-    }
+    },
   },
 
   mounted() {
@@ -70,8 +74,8 @@ export default {
       </DataTable>
 
       <div class="button-container">
-        <Button class="btn" v-on:click="deleteTournament">Удалить</Button>
-        <Button class="btn" v-on:click="createNewTournament">Создать</Button>
+        <NewTournament/>
+        <confirmPopup @Delete="deleteTournament()"></confirmPopup>
         <Button class="btn" v-on:click="createNewTournament">Создать</Button>
       </div>
 

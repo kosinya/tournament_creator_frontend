@@ -39,6 +39,7 @@ export const tournamentList = {
         addNewTournament: (context, newTournament) => {
             tournamentApi.createTournament(newTournament).then(value => {
                 context.commit('ADD_TOURNAMENT', value.data);
+                console.log(value);
             })
         },
         deleteTournament: (context, id) => {
