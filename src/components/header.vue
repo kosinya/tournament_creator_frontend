@@ -22,16 +22,16 @@ export default {
 <template>
 
 <header>
-  <div class="flex justify-content-between overflow-auto bg-cyan-100 shadow-5">
+  <div class="flex justify-content-between overflow-auto bg-gray-800">
     <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
-      <img class="w-2rem mr-1" src="../assets/icon/icon.ico" alt="" />
-      <img class="w-8rem" src="../assets/icon/text-logo.png" alt="" />
+      <img class="w-8rem" src="../assets/icon/logo-text.png" alt="теннис" />
     </div>
     <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
       <div class="flag shadow-3"></div>
     </div>
     <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
-      <Button class="px-3 py-2 shadow-3 transition-ease-in-out border-round-sm" @click="is_visible = true">
+      <Button class="px-3 py-2 shadow-3 border-round-sm border-gray-700 bg-gray-700
+                    transition-linear hover:bg-gray-900 hover:border-gray-900 transition-duration-100" @click="is_visible = true">
         <span class="pi pi-user"></span>Авторизация
       </Button>
 
