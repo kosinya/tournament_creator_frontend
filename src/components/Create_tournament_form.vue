@@ -69,7 +69,8 @@ export default {
     </div>
     <div class="flex justify-end gap-2">
       <Button type="button" label="Отмена" severity="secondary" @click="cancel"></Button>
-      <Button type="button" label="Сохранить" @click="createNewTournament"></Button>
+      <Button type="button" v-if="newTournament.name != ''" label="Сохранить" @click="createNewTournament"></Button>
+      <Button type="button" disabled v-else label="Сохранить"></Button>
     </div>
   </Dialog>
 </template>

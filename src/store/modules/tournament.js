@@ -48,8 +48,9 @@ export const tournamentList = {
             })
         },
         updateTournament: (context, payload) => {
-            tournamentApi.updateTournament(payload.id, payload.data).then(() => {
-                context.commit('UPDATE_TOURNAMENT', payload.data);
+            tournamentApi.updateTournament(payload.id, payload.data).then((res) => {
+                context.commit('UPDATE_TOURNAMENT', payload);
+                console.log(res)
             })
         }
     }

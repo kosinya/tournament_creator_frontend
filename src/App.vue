@@ -6,6 +6,7 @@ import Row from 'primevue/row';
 import Button from "primevue/button";
 import NewTournament from "./components/Create_tournament_form.vue";
 import confirmPopup from "./components/ConfirmPopup.vue";
+import EditTournament from "./components/edit_tournament.vue";
 import {tournamentApi} from "./api/api_routes/tournament_list.js";
 
 
@@ -14,13 +15,14 @@ export default {
     return {
       selectedTournament: null,
       current_id: 0,
-      newTournament: {
-        name: "test",
+      tournament: {
+        name: "",
         date: new Date(),
-        is_completed: true
+        is_completed: false
       },
     }
   },
+
 
   components: {
     DataTable,
@@ -29,22 +31,27 @@ export default {
     Row,
     ColumnGroup,
     NewTournament,
-    confirmPopup
+    confirmPopup,
+    EditTournament
   },
 
   methods: {
-    createNewTournament() {
-      this.$store.dispatch("tournamentList/addNewTournament", this.newTournament);
-    },
     deleteTournament() {
       this.$store.dispatch("tournamentList/deleteTournament", this.current_id);
+      this.current_id = 0;
+      this.tournament.name="";
     },
     onRowSelected(event) {
-      console.log(event.data.id);
+      //console.log(event.data.id);
       this.current_id = event.data.id;
+      this.tournament.name = event.data.name;
+      this.tournament.date = event.data.date;
+      this.tournament.is_completed = event.data.is_completed;
+      console.log(this.tournament);
     },
     onRowUnselected(event) {
       this.current_id = null;
+      this.tournament.name="";
     },
   },
 
@@ -67,7 +74,7 @@ export default {
     <div class="tournament-container">
 
       <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id" :metaKeySelection="true"
-                 @rowSelect="onRowSelected" @rowUnselect="onRowUnselected" tableStyle="min-width: 50rem">
+                 @rowSelect="onRowSelected" @rowUnselect="onRowUnselected" scrollable scrolHeight="400px" tableStyle="min-width: 50rem">
         <Column field="name" header="Имя турнира"></Column>
         <Column field="date" header="Дата"></Column>
         <Column field="is_completed" header="Статус"></Column>
@@ -75,8 +82,8 @@ export default {
 
       <div class="button-container">
         <NewTournament/>
-        <confirmPopup @Delete="deleteTournament()"></confirmPopup>
-        <Button class="btn" v-on:click="createNewTournament">Создать</Button>
+        <confirmPopup v-bind:current_id="current_id" @Delete="deleteTournament()"></confirmPopup>
+        <EditTournament v-bind:tournament="tournament" :current_id="current_id"/>
       </div>
 
     </div>
