@@ -22,7 +22,6 @@ export default {
     }
   },
 
-
   components: {
     DataTable,
     Column,
@@ -45,7 +44,8 @@ export default {
       this.tournament.name = event.data.name;
       this.tournament.date = event.data.date;
       this.tournament.is_completed = event.data.is_completed;
-      console.log(this.tournament);
+      this.$store.dispatch('getAllLeagues', event.data.id);
+      // console.log(this.tournament);
     },
     onRowUnselected(event) {
       this.current_id = null;
@@ -63,57 +63,35 @@ export default {
     }
   }
 };
+
 </script>
 
 
 <template>
-  <div class="container">
+  <div class="flex flex-column justify-content-start align-items-start p-1">
 
-    <div class="tournament-container">
+    <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id"
+               :metaKeySelection="true" @rowSelect="onRowSelected" @rowUnselect="onRowUnselected"
+               tableStyle="min-width:35rem" >
+      <Column field="name" header="Имя турнира"></Column>
+      <Column field="date" header="Дата"></Column>
+      <Column field="is_completed" header="Статус"></Column>
+    </DataTable>
 
-      <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id" :metaKeySelection="true"
-                 @rowSelect="onRowSelected" @rowUnselect="onRowUnselected" scrollable scrolHeight="400px" tableStyle="min-width: 50rem">
-        <Column field="name" header="Имя турнира"></Column>
-        <Column field="date" header="Дата"></Column>
-        <Column field="is_completed" header="Статус"></Column>
-      </DataTable>
-
-      <div class="button-container">
+    <div class="flex flex-row flex-wrap pt-2">
+      <div class="flex align-items-center justify-content-center mr-2">
         <NewTournament/>
-        <confirmPopup v-bind:current_id="current_id" @Delete="deleteTournament()"></confirmPopup>
-        <EditTournament v-bind:tournament="tournament" :current_id="current_id"/>
       </div>
-
+      <div class="flex align-items-center justify-content-center mr-2">
+        <confirmPopup v-bind:current_id="current_id" @Delete="deleteTournament()"></confirmPopup>
+      </div>
     </div>
+
+
+<!--<EditTournament v-bind:tournament="tournament" :current_id="current_id"/>-->
+
   </div>
 </template>
 
 <style scoped>
-
-.tournament-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: normal;
-  align-items: flex-start;
-  height: 100vh;
-  width: 25%;
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: flex-start;
-}
-
-.button-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-start;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
-
 </style>

@@ -38,7 +38,9 @@ export default {
 </script>
 
 <template>
-  <Button label="Создать турнир" class="mx-3 w-full" @click="visible = true" />
+  <Button class="font-light" @click="visible = true">
+    <p class="font-normal">Создать турнир</p>
+  </Button>
   <Dialog v-model:visible="visible" modal header="Создание турнира" :style="{ width: '40rem' }">
     <span class="text-surface-500 dark:text-surface-400 block mb-8">Введите нужную информацию</span>
     <div class="flex items-center gap-4 mb-4">
