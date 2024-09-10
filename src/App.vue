@@ -1,4 +1,3 @@
-<script>
 import Header from './components/header.vue'
 import InputNumber from "primevue/inputnumber";
 import Button from 'primevue/button'
@@ -60,7 +59,5 @@ export default {
     height: 100vh;
     width: 100vh;
   }
-
+  
 </style>
-
-
