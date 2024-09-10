@@ -51,6 +51,12 @@ export default {
       this.current_id = null;
       this.tournament.name="";
     },
+    getStatus(st) {
+      if (st === true) {
+        return 'Завершен'
+      }
+      return 'Идёт'
+    }
   },
 
   mounted() {
@@ -72,10 +78,14 @@ export default {
 
     <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id"
                :metaKeySelection="true" @rowSelect="onRowSelected" @rowUnselect="onRowUnselected"
-               tableStyle="min-width:35rem" >
+               resizableColumns columnResizeMode="expand" tableStyle="min-width:30rem;">
       <Column field="name" header="Имя турнира"></Column>
       <Column field="date" header="Дата"></Column>
-      <Column field="is_completed" header="Статус"></Column>
+      <Column field="is_completed" header="Статус">
+        <template>
+
+        </template>
+      </Column>
     </DataTable>
 
     <div class="flex flex-row flex-wrap pt-2">

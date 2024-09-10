@@ -41,18 +41,16 @@ export default {
   <Button class="font-light" @click="visible = true">
     <p class="font-normal">Создать турнир</p>
   </Button>
-  <Dialog v-model:visible="visible" modal header="Создание турнира" :style="{ width: '40rem' }">
-    <span class="text-surface-500 dark:text-surface-400 block mb-8">Введите нужную информацию</span>
-    <div class="flex items-center gap-4 mb-4">
+
+  <Dialog v-model:visible="visible" modal header="Создание турнира" :style="{ width: '30rem' }">
+    <span class="text-surface-500 dark:text-surface-400 block mb-4">Введите нужную информацию.</span>
+    <div class="flex flex-column items-center gap-2 mb-4">
       <label for="username" class="font-semibold w-24">Название турнира</label>
       <InputText id="username" class="flex-auto" autocomplete="off" v-model="newTournament.name" />
     </div>
 
-
-    <div class="flex flex-wrap gap-4">
-      <div>
-        <label for="ingredient1" class="ml-2">Статус турнира</label>
-      </div>
+    <div class="flex flex-row flex-wrap justify-content-between gap-2 mb-4">
+      <label><p class="font-semibold">Статус турнира</p></label>
       <div class="flex items-center">
         <RadioButton v-model="newTournament.is_completed"  name="st" v-bind:value="true" />
         <label class="ml-2">Идет</label>
@@ -65,14 +63,20 @@ export default {
 
 
 
-    <div>
-      <label for="username" class="font-semibold w-24">Дата турнира</label>
+    <div class="flex flex-column items-center gap-2 mb-4">
+      <label for="username" class="font-semibold w-24">Дата регистрации</label>
       <DatePicker v-model="newTournament.date" />
     </div>
     <div class="flex justify-end gap-2">
-      <Button type="button" label="Отмена" severity="secondary" @click="cancel"></Button>
-      <Button type="button" v-if="newTournament.name != ''" label="Сохранить" @click="createNewTournament"></Button>
-      <Button type="button" disabled v-else label="Сохранить"></Button>
+      <Button type="button" severity="secondary" @click="cancel">
+        <p class="font-normal">Отмена</p>
+      </Button>
+      <Button type="button" v-if="newTournament.name != ''" @click="createNewTournament">
+        <p class="font-normal">Сохранить</p>
+      </Button>
+      <Button type="button" disabled v-else>
+        <p class="font-normal">Сохранить</p>
+      </Button>
     </div>
   </Dialog>
 </template>
