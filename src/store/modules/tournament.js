@@ -4,15 +4,22 @@ export const tournamentList = {
     namespaced: true,
     state: () => ({
         tournaments: null,
+        currentTournamentId: null,
     }),
     getters: {
       tournamentList: state => {
           return state.tournaments;
+      },
+      currentTournamentId: state => {
+          return state.currentTournamentId;
       }
     },
     mutations: {
         SET_TOURNAMENTS(state, value) {
             state.tournaments = value;
+        },
+        SET_CURRENT_TOURNAMENT_ID(state, id) {
+            state.currentTournamentId = id;
         },
         ADD_TOURNAMENT(state, value) {
             state.tournaments.push(value);
@@ -36,10 +43,13 @@ export const tournamentList = {
                 context.commit('SET_TOURNAMENTS', value.data);
             })
         },
+        setCurrentTournamentId: (context, id) => {
+            context.commit("SET_CURRENT_TOURNAMENT_ID", id)
+        },
         addNewTournament: (context, newTournament) => {
             tournamentApi.createTournament(newTournament).then(value => {
                 context.commit('ADD_TOURNAMENT', value.data);
-                console.log(value);
+                // console.log(value);
             })
         },
         deleteTournament: (context, id) => {

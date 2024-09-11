@@ -2,6 +2,7 @@
 import Listbox from "primevue/listbox";
 import Button from "primevue/button";
 import CreateNewLeague from "./CreateNewLaegue.vue";
+import LeagueDelete from "./LeagueDelete.vue";
 
 export default {
   data() {
@@ -13,10 +14,16 @@ export default {
     Listbox,
     Button,
     CreateNewLeague,
+    LeagueDelete,
   },
   computed: {
     leagues() {
       return this.$store.getters.GET_LEAGUES;
+    }
+  },
+  methods: {
+    onRowSelected() {
+      this.$store.dispatch('set_current_league_id', this.selectedLeague.id);
     }
   }
 }
@@ -24,7 +31,8 @@ export default {
 
 <template>
   <div class="flex flex-column justify-content-start align-items-start p-1">
-    <Listbox v-model="selectedLeague" :options="leagues" optionLabel="name" empty-message="Лиг не найдено" class="w-full md:w-fit border-none"
+    <Listbox v-model="selectedLeague" :options="leagues" optionLabel="name" empty-message="Лиг не найдено"
+             @change="onRowSelected" class="w-full md:w-fit border-none"
              listStyle="max-height:250px; min-width: 250px; max-width: 250px;">
     </Listbox>
 
@@ -33,9 +41,7 @@ export default {
         <CreateNewLeague/>
       </div>
       <div class="flex align-items-center justify-content-center mr-2">
-        <Button>
-          <p class="font-normal">Удалить</p>
-        </Button>
+        <LeagueDelete/>
       </div>
     </div>
 

@@ -5,7 +5,7 @@ import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row';
 import Button from "primevue/button";
 import NewTournament from "./CreateTournamentForm.vue";
-import confirmPopup from "./ConfirmDelete.vue";
+import ConfirmDelete from "./ConfirmDelete.vue";
 import EditTournament from "./EditTournament.vue";
 
 
@@ -23,13 +23,13 @@ export default {
   },
 
   components: {
+    ConfirmDelete,
     DataTable,
     Column,
     Button,
     Row,
     ColumnGroup,
     NewTournament,
-    confirmPopup,
     EditTournament
   },
 
@@ -37,10 +37,12 @@ export default {
     deleteTournament() {
       this.$store.dispatch("tournamentList/deleteTournament", this.current_id);
       this.current_id = 0;
+      this.$store.dispatch("tournamentList/setCurrentTournamentId", null);
       this.tournament.name="";
     },
     onRowSelected(event) {
       this.current_id = event.data.id;
+      this.$store.dispatch("tournamentList/setCurrentTournamentId", event.data.id);
       this.tournament.name = event.data.name;
       this.tournament.date = event.data.date;
       this.tournament.is_completed = event.data.is_completed;
@@ -49,14 +51,9 @@ export default {
     },
     onRowUnselected(event) {
       this.current_id = null;
+      this.$store.dispatch("tournamentList/setCurrentTournamentId", null);
       this.tournament.name="";
     },
-    getStatus(st) {
-      if (st === true) {
-        return 'Завершен'
-      }
-      return 'Идёт'
-    }
   },
 
   mounted() {
@@ -93,7 +90,7 @@ export default {
         <NewTournament/>
       </div>
       <div class="flex align-items-center justify-content-center mr-2">
-        <confirmPopup v-bind:current_id="current_id" @Delete="deleteTournament()"></confirmPopup>
+        <ConfirmDelete v-bind:current_id="current_id" @Delete="deleteTournament()"></ConfirmDelete>
       </div>
     </div>
 
