@@ -44,7 +44,7 @@ export default {
       <label class="text-xl font-semibold mb-2">Лиги</label>
       <Listbox v-model="selectedLeague" :options="allLeagues" optionLabel="name" empty-message="Лиг не найдено"
                @change="onRowSelected" class="w-full md:w-fit border-none"
-               listStyle="max-height:100%; min-width: 250px; max-width: 250px;">
+               listStyle="max-height:100%; min-width: 200px; max-width: 200;">
       </Listbox>
 
       <div class="flex flex-row flex-wrap mt-3">
