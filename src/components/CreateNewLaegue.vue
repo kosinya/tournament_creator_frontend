@@ -40,8 +40,8 @@ export default {
 </script>
 
 <template>
-  <Button @click="visible = true">
-    <p class="font-normal">Создать лигу</p>
+  <Button @click="visible = true" class="border-round-lg">
+    <p class="font-normal">Создать</p>
   </Button>
 
   <Dialog v-model:visible="visible" modal header="Добавить лигу" :style="{ width: '30rem' }">
@@ -56,10 +56,10 @@ export default {
               class="w-full md:w-56"/>
     </div>
     <div class="flex justify-end gap-2">
-      <Button type="button" severity="secondary" @click="cancel">
+      <Button type="button" severity="secondary" class="border-round-lg" @click="cancel">
         <p class="font-normal">Отмена</p>
       </Button>
-      <Button type="button" @click="create">
+      <Button type="button" class="border-round-lg" @click="create">
         <p class="font-normal">Добавить</p>
       </Button>
     </div>

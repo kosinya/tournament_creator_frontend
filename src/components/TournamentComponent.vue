@@ -13,15 +13,10 @@ export default {
   data() {
     return {
       selectedTournament: null,
-      current_id: 0,
-      tournament: {
-        name: "",
-        date: new Date(),
-        is_completed: false
-      },
+      icon: "pi pi-angle-double-left",
+      visible: true
     }
   },
-
   components: {
     ConfirmDelete,
     DataTable,
@@ -32,37 +27,40 @@ export default {
     NewTournament,
     EditTournament
   },
-
   methods: {
     deleteTournament() {
-      this.$store.dispatch("tournamentList/deleteTournament", this.current_id);
-      this.current_id = 0;
-      this.$store.dispatch("tournamentList/setCurrentTournamentId", null);
-      this.tournament.name="";
+      this.$store.dispatch("tournamentList/deleteTournament", this.selectedTournament.tournament_id);
+      this.selectedTournament = null;
     },
     onRowSelected(event) {
-      this.current_id = event.data.id;
-      this.$store.dispatch("tournamentList/setCurrentTournamentId", event.data.id);
-      this.tournament.name = event.data.name;
-      this.tournament.date = event.data.date;
-      this.tournament.is_completed = event.data.is_completed;
-      this.$store.dispatch('getAllLeagues', event.data.id);
-      // console.log(this.tournament);
+      this.$store.dispatch('getAllLeagues', event.data.tournament_id)
     },
-    onRowUnselected(event) {
-      this.current_id = null;
-      this.$store.dispatch("tournamentList/setCurrentTournamentId", null);
-      this.tournament.name="";
-    },
-  },
+    folding() {
+      this.visible = !this.visible;
 
+      if (this.visible === false) {
+        this.icon = "pi pi-angle-double-right"
+      } else {
+        this.icon = "pi pi-angle-double-left"
+      }
+      console.log(this.icon)
+    }
+  },
   mounted() {
     this.$store.dispatch("tournamentList/getAllTournaments");
   },
-
   computed: {
     tournamentList() {
       return this.$store.getters['tournamentList/tournamentList'];
+    }
+  },
+  watch: {
+    selectedTournament(value) {
+      if (value != null) {
+        this.$store.dispatch("tournamentList/setCurrentTournamentId", value.tournament_id);
+      } else {
+        this.$store.dispatch("tournamentList/setCurrentTournamentId", null);
+      }
     }
   }
 };
@@ -71,31 +69,26 @@ export default {
 
 
 <template>
-  <div class="flex flex-column justify-content-start align-items-start p-1">
+  <div class="flex justify-content-start align-items-start">
+    <div class="flex flex-column ml-3 p-3 bg-gray-100 border-gray-100 border-round-xl">
+      <Button class="m-2 border-0 text-gray-900 bg-transparent" @click="folding" v-bind:icon="this.icon" outlined aria-label="Filter" />
+      <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id"
+                 v-show="visible" :metaKeySelection="true" @rowSelect="onRowSelected"
+                 columnResizeMode="expand" tableStyle="min-width:30rem;">
+        <Column field="name" header="Название турнира"></Column>
+        <Column field="date" header="Дата"></Column>
+        <Column field="is_completed" header="Статус"></Column>
+      </DataTable>
 
-    <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id"
-               :metaKeySelection="true" @rowSelect="onRowSelected" @rowUnselect="onRowUnselected"
-               resizableColumns columnResizeMode="expand" tableStyle="min-width:30rem;">
-      <Column field="name" header="Имя турнира"></Column>
-      <Column field="date" header="Дата"></Column>
-      <Column field="is_completed" header="Статус">
-        <template>
-
-        </template>
-      </Column>
-    </DataTable>
-
-    <div class="flex flex-row flex-wrap pt-2">
-      <div class="flex align-items-center justify-content-center mr-2">
-        <NewTournament/>
-      </div>
-      <div class="flex align-items-center justify-content-center mr-2">
-        <ConfirmDelete v-bind:current_id="current_id" @Delete="deleteTournament()"></ConfirmDelete>
+      <div class="flex flex-row flex-wrap mt-3" v-if="visible">
+        <div class="flex align-items-center justify-content-center mr-2">
+          <NewTournament/>
+        </div>
+        <div class="flex align-items-center justify-content-center mr-2">
+          <ConfirmDelete v-bind:selected="selectedTournament" @Delete="deleteTournament()"></ConfirmDelete>
+        </div>
       </div>
     </div>
-
-
-<!--<EditTournament v-bind:tournament="tournament" :current_id="current_id"/>-->
 
   </div>
 </template>

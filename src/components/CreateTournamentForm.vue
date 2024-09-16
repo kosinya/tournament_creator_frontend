@@ -38,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <Button class="font-light" @click="visible = true">
+  <Button class="font-light border-round-lg"  @click="visible = true">
     <p class="font-normal">Создать турнир</p>
   </Button>
 
@@ -68,13 +68,13 @@ export default {
       <DatePicker v-model="newTournament.date" />
     </div>
     <div class="flex justify-end gap-2">
-      <Button type="button" severity="secondary" @click="cancel">
+      <Button type="button" severity="secondary" class="border-round-lg" @click="cancel">
         <p class="font-normal">Отмена</p>
       </Button>
-      <Button type="button" v-if="newTournament.name != ''" @click="createNewTournament">
+      <Button type="button" class="border-round-lg" v-if="newTournament.name != ''" @click="createNewTournament">
         <p class="font-normal">Сохранить</p>
       </Button>
-      <Button type="button" disabled v-else>
+      <Button type="button" class="border-round-lg" disabled v-else>
         <p class="font-normal">Сохранить</p>
       </Button>
     </div>

@@ -25,7 +25,7 @@ export const tournamentList = {
             state.tournaments.push(value);
         },
         DELETE_TOURNAMENT(state, id) {
-            let index = state.tournaments.findIndex(tournament => tournament.id === id);
+            let index = state.tournaments.findIndex(tournament => tournament.tournament_id === id);
             state.tournaments.splice(index, 1);
         },
         UPDATE_TOURNAMENT(state, payload) {

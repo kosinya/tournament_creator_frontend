@@ -3,17 +3,33 @@
 import Button from "primevue/button";
 import Dialog from 'primevue/dialog';
 import InputText from "primevue/inputtext";
+import Menubar from 'primevue/menubar';
 
 export default {
   data: function () {
     return {
       is_visible: false,
+      items: [
+        {
+          label: 'Главная',
+          icon: 'pi pi-home'
+        },
+        {
+          label: 'Общая таблица',
+          icon: 'pi pi-list'
+        },
+        {
+          label: 'Подзраделения',
+          icon: 'pi pi-building-columns'
+        }
+      ]
     }
   },
   components: {
     Button,
     Dialog,
     InputText,
+    Menubar
   }
 }
 
@@ -21,30 +37,30 @@ export default {
 
 <template>
 
-<header>
-  <div class="flex justify-content-between overflow-auto bg-gray-800">
-    <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
-      <img class="w-8rem" src="../assets/icon/logo-text.png" alt="теннис" />
-    </div>
-    <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
-      <div class="flag shadow-3"></div>
-    </div>
-    <div class="flex-1 flex align-items-center justify-content-center bg-transparent">
-      <Button class="px-3 py-2 shadow-3 border-round-sm border-gray-700 bg-gray-700
-                    transition-linear hover:bg-gray-900 hover:border-gray-900 transition-duration-100" @click="is_visible = true">
-        <span class="pi pi-user"></span>Авторизация
-      </Button>
-
-        <!-- Диалоговое окно авторизации -->
-
-        <!---------------------------------->
-    </div>
+<header class="bg-gray-900 p-3">
+  <div class="flex justify-content-center bg-gray-100 border-round-xl border-transparent">
+    <Menubar class="bg-transparent border-transparent w-full" :model="items">
+      <template #item="{item}">
+        <div class="flex px-4 py-2 items-center cursor-pointer p-menuitem-active active:bg-black-alpha-10">
+          <span :class="item.icon" />
+          <span class="ml-2">{{ item.label }}</span>
+        </div>
+      </template>
+      <template #end>
+        <Button class="border-round-lg px-4"><i class="pi pi-user"></i>Войти</Button>
+      </template>
+    </Menubar>
   </div>
 </header>
 
 </template>
 
 <style scoped>
+
+p-menuitem-active {
+  background-color: var(--primary-color);
+}
+
 /* Flag */
 .flag {
   width: 100%;

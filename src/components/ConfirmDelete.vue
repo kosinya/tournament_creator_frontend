@@ -3,7 +3,7 @@ import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 export default {
   props: {
-    current_id: Number,
+    selected: null,
   },
   components: {
     Dialog,
@@ -26,19 +26,19 @@ export default {
 </script>
 
 <template>
-  <Button v-if="current_id != 0" @click="visible = true">
+  <Button v-if="selected != null" class="border-round-lg" @click="visible = true">
     <p class="font-normal">Удалить турнир</p>
   </Button>
-  <Button disabled v-else>
+  <Button class="border-round-lg" disabled v-else>
     <p class="font-normal">Удалить турнир</p>
   </Button>
   <Dialog v-model:visible="visible" modal header="Подтвердите действие" :style="{ width: '40rem' }">
     <span class="text-surface-500 dark:text-surface-400 block mb-4">Вы уверены, что хотите удалить турнир?</span>
     <div class="flex justify-end gap-2">
-      <Button @click="visible=false">
+      <Button class="border-round-lg" @click="visible=false">
         <p class="font-normal">Отмена</p>
       </Button>
-      <Button @click="Delete" severity="danger">
+      <Button class="border-round-lg" @click="Delete" severity="danger">
         <p class="font-normal">Удалить</p>
       </Button>
     </div>

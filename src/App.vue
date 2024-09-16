@@ -7,7 +7,6 @@ export default {
   data() {
     return {
       selectedLeague: null,
-      t_id: null,
     }
   },
   components: {
@@ -22,29 +21,14 @@ export default {
 </script>
 
 <template>
-  <Header></Header>
-  <div class="flex w-full h-screen justify-content-start align-items-start bg-transparent bg-gray-300">
-    <TournamentComponent/>
-    <LeagueComponent/>
-
-
-<!--    <div class="flex flex-column flex-wrap bg-white border-round-lg justify-content-center py-5" style="max-width: 500px">-->
-<!--      <div class="flex align-items-center justify-content-center bg-gray-200 font-bold m-2 border-round" style="min-width: 200px; min-height: 100px">1</div>-->
-<!--      <div class="flex align-items-center justify-content-center bg-gray-200 font-bold m-2 border-round" style="min-width: 200px; min-height: 100px">1</div>-->
-<!--      <div class="flex align-items-center justify-content-center bg-gray-200 font-bold m-2 border-round" style="min-width: 200px; min-height: 100px">1</div>-->
-<!--      <div class="flex align-items-center justify-content-center bg-gray-200 font-bold m-2 border-round" style="min-width: 200px; min-height: 100px">1</div>-->
-<!--      <div class="flex align-items-center justify-content-center bg-gray-200 font-bold m-2 border-round" style="min-width: 200px; min-height: 100px">1</div>-->
-<!--    </div>-->
+  <div class="bg-gray-900">
+    <Header></Header>
+    <div class="flex w-full h-screen justify-content-start align-items-start">
+      <TournamentComponent/>
+      <LeagueComponent/>
+    </div>
   </div>
-
 </template>
 
 <style scoped>
-
-  .container {
-    display: flex;
-    height: 100vh;
-    width: 100vh;
-  }
-  
 </style>
