@@ -1,7 +1,8 @@
 <script>
 import Header from "./components/Header.vue"
 import TournamentComponent from "./components/TournamentComponent.vue";
-import LeagueComponent from "./components/LeagueComponent.vue";
+import LeagueList from "./components/LeagueList.vue";
+import LeagueInfo from "./components/LeagueInfo.vue";
 
 export default {
   data() {
@@ -11,21 +12,21 @@ export default {
   },
   components: {
     Header,
-    LeagueComponent,
+    LeagueList,
     TournamentComponent,
+    LeagueInfo
   },
-  methods: {
-
-  },
+  methods: {},
 }
 </script>
 
 <template>
-  <div class="bg-gray-900">
+  <div class="bg-gray-900 max-w-screen max-h-full">
     <Header></Header>
     <div class="flex w-full h-screen justify-content-start align-items-start">
       <TournamentComponent/>
-      <LeagueComponent/>
+      <LeagueList/>
+      <LeagueInfo/>
     </div>
   </div>
 </template>
