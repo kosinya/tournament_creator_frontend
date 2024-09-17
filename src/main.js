@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import PrimeVue from 'primevue/config';
 import {store} from './store'
+import router from './router/router.js'
 
 import DialogService from 'primevue/dialogservice'
 import ConfirmationService from 'primevue/confirmationservice'
@@ -28,6 +29,7 @@ app.use(PrimeVue, {
     }
 });
 app.use(store);
+app.use(router);
 app.use(ConfirmationService);
 app.use(ToastService);
 app.use(DialogService);

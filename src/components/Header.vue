@@ -5,6 +5,8 @@ import Dialog from 'primevue/dialog';
 import InputText from "primevue/inputtext";
 import Menubar from 'primevue/menubar';
 
+import router from '../router/router.js'
+
 export default {
   data: function () {
     return {
@@ -12,15 +14,24 @@ export default {
       items: [
         {
           label: 'Главная',
-          icon: 'pi pi-home'
+          icon: 'pi pi-home',
+          command: () => {
+            router.push('/main')
+          }
         },
         {
           label: 'Общая таблица',
-          icon: 'pi pi-list'
+          icon: 'pi pi-list',
+          command: () => {
+            router.push('/players')
+          }
         },
         {
           label: 'Подзраделения',
-          icon: 'pi pi-building-columns'
+          icon: 'pi pi-building-columns',
+          command: () => {
+            router.push('/department')
+          }
         }
       ]
     }
@@ -41,10 +52,11 @@ export default {
   <div class="flex justify-content-center bg-gray-100 border-round-xl border-transparent">
     <Menubar class="bg-transparent border-transparent w-full" :model="items">
       <template #item="{item}">
-        <div class="flex px-4 py-2 items-center cursor-pointer p-menuitem-active active:bg-black-alpha-10">
-          <span :class="item.icon" />
-          <span class="ml-2">{{ item.label }}</span>
-        </div>
+          <RouterLink to="item.command" class="flex px-4 py-2 items-center cursor-pointer hover:text-white
+                          active:bg-black-alpha-10 text-gray-900 no-underline">
+            <span :class="item.icon" />
+            <span class="ml-2">{{ item.label }}</span>
+          </RouterLink>
       </template>
       <template #end>
         <Button class="border-round-lg px-4"><i class="pi pi-user"></i>Войти</Button>
@@ -56,10 +68,6 @@ export default {
 </template>
 
 <style scoped>
-
-p-menuitem-active {
-  background-color: var(--primary-color);
-}
 
 /* Flag */
 .flag {

@@ -23,11 +23,7 @@ export default {
 <template>
   <div class="bg-gray-900 max-w-screen max-h-full">
     <Header></Header>
-    <div class="flex w-full h-screen justify-content-start align-items-start">
-      <TournamentComponent/>
-      <LeagueList/>
-      <LeagueInfo/>
-    </div>
+    <RouterView />
   </div>
 </template>
 
