@@ -42,10 +42,12 @@ export default {
 </script>
 
 <template>
-  <div class="flex justify-content-between flex-wrap border-transparent bg-gray-100" style="display: flex; flex-wrap: wrap;">
-    <DataTable v-for="i in list" :value="i" showGridlines sortField="quantity" :sortOrder="-1" style="border: 2px solid transparent;  border-radius: 10px; padding: 3%; margin: 0; width: 50%">
+  <div class="flex flex-wrap gap-2 border-transparent bg-gray-100">
+    <DataTable v-for="i in list" :value="i" showGridlines sortField="score" :sortOrder="-1"
+               style="min-width: fit-content; max-width: 50%;"
+               class="flex flex-column" columnResizeMode="expand">
       <template #header>
-        <div class="flex justify-between">
+        <div class="flex justify-between font-semibold">
           Группа {{i[0].group_name}}
         </div>
       </template>
@@ -55,7 +57,7 @@ export default {
         </template>
       </Column>
       <Column field="name" header="Участник"></Column>
-      <Column field="quantity" header="Набранные очки"></Column>
+      <Column field="score" header="Очки"></Column>
     </DataTable>
   </div>
 </template>
