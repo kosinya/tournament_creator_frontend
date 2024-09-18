@@ -3,7 +3,6 @@ import Header from "./components/Header.vue"
 import TournamentComponent from "./components/TournamentComponent.vue";
 import LeagueList from "./components/LeagueList.vue";
 import LeagueInfo from "./components/LeagueInfo.vue";
-
 export default {
   data() {
     return {
@@ -14,7 +13,7 @@ export default {
     Header,
     LeagueList,
     TournamentComponent,
-    LeagueInfo
+    LeagueInfo,
   },
   methods: {},
 }
