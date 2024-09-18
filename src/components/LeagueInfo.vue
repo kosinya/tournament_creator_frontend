@@ -121,16 +121,16 @@ export default {
 
 <template>
   <div class="flex justify-content-start align-items-start h-full w-full pb-3">
-    <div class="flex flex-column mx-3 p-3 bg-gray-100 border-gray-100 border-round-xl h-full w-full">
+    <div class="flex flex-column mx-3 p-3 bg-gray-200 border-gray-200 border-round-xl h-full w-full">
 
-      <div class="font-semibold pb-2">{{label}}</div>
-      <Splitter class="bg-transparent flex p-3 h-full min-h-0">
+      <div class="text-xl font-semibold ">{{label}}</div>
+      <Splitter class="bg-transparent flex p-3 h-full min-h-0 border-transparent">-->
         <SplitterPanel class="flex items-center justify-center">
           <ScrollPanel>
             <GroupsComponent v-bind:players="this.players" v-bind:n_group=4 />
           </ScrollPanel>
         </SplitterPanel>
-        <SplitterPanel class="flex items-center justify-center"></SplitterPanel>
+        <SplitterPanel class="flex items-center justify-center">   Что-то</SplitterPanel>
       </Splitter>
 
     </div>

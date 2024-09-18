@@ -42,10 +42,10 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2 border-transparent bg-gray-100">
+  <div class="flex flex-wrap gap-2 bg-gray-200">
     <DataTable v-for="i in list" :value="i" showGridlines sortField="score" :sortOrder="-1"
                style="min-width: fit-content; max-width: 50%;"
-               class="flex flex-column" columnResizeMode="expand">
+               class="flex flex-column border-1 bg-white border-white border-round-xl p-2" columnResizeMode="expand">
       <template #header>
         <div class="flex justify-between font-semibold">
           Группа {{i[0].group_name}}
