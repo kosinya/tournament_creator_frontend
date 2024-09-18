@@ -19,6 +19,7 @@ export const department = {
         },
         DELETE_DEPARTMENT(state, id) {
           let index = state.departments.findIndex(department => department.id === id);
+          state.departments.splice(index, 1);
         }
     },
     actions: {
@@ -27,6 +28,16 @@ export const department = {
                 context.commit('SET_DEPARTMENTS', value.data);
             })
         },
+        addNewDepartment:(context, newDepartment) => {
+            departmentApi.createDepartment(newDepartment).then(value => {
+                context.commit('ADD_DEPARTMENT', value.data);
+            })
+        },
+        deleteDepartment:(context, id) => {
+            departmentApi.deleteDepartment(id).then(value => {
+                context.commit('DELETE_DEPARTMENT', id);
+            })
+        }
     }
 
 }

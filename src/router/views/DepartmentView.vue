@@ -1,6 +1,8 @@
 <script>
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import CreateDepartment from "../../components/CreateDepartment.vue";
+import DeleteDepartment from "../../components/DeleteDepartment.vue";
 
 export default {
   data() {
@@ -11,6 +13,8 @@ export default {
   components: {
     DataTable,
     Column,
+    CreateDepartment,
+    DeleteDepartment
   },
   methods: {
 
@@ -34,8 +38,18 @@ export default {
         <Column field="id" header="Код"></Column>
         <Column field="name" header="Подразделение"></Column>
       </DataTable>
+
+      <div class="flex flex-row flex-wrap mt-3">
+        <div class="flex align-items-center justify-content-center mr-2">
+          <CreateDepartment />
+        </div>
+        <div class="flex align-items-center justify-content-center mr-2">
+          <DeleteDepartment v-bind:current="selectedDepartment" />
+        </div>
+      </div>
     </div>
   </div>
+
 </template>
 
 <style scoped>
