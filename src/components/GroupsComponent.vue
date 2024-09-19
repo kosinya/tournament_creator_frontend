@@ -12,7 +12,7 @@ export default {
   },
   props: {
     n_group: Number,
-    players: [],
+    players: Array,
   },
   data() {
     return{

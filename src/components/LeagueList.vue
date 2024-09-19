@@ -40,7 +40,7 @@ export default {
 
 <template>
   <div class="flex flex-column justify-content-start align-items-start">
-    <div class="flex flex-column ml-3 p-3 border-gray-100 border-round-xl bg-gray-100">
+    <div class="flex flex-column ml-3 p-3 border-gray-200 border-round-xl bg-gray-200">
       <label class="text-xl font-semibold mb-2">Лиги</label>
       <Listbox v-model="selectedLeague" :options="allLeagues" optionLabel="name" empty-message="Лиг не найдено"
                @change="onRowSelected" class="w-full md:w-fit border-none"

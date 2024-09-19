@@ -70,7 +70,7 @@ export default {
 
 <template>
   <div class="flex justify-content-start align-items-start">
-    <div class="flex flex-column ml-3 p-3 bg-gray-100 border-gray-100 border-round-xl">
+    <div class="flex flex-column ml-3 p-3 bg-gray-200 border-gray-200 border-round-xl">
       <Button class="mb-1 border-transparent text-gray-900 bg-transparent" @click="folding" v-bind:icon="this.icon" outlined aria-label="Filter" />
       <DataTable v-model:selection="selectedTournament" :value="tournamentList" selectionMode="single" datakey="id"
                  v-show="visible" :metaKeySelection="true" @rowSelect="onRowSelected"

@@ -1,12 +1,13 @@
 import { createMemoryHistory, createRouter } from 'vue-router'
 import MainView from "./views/MainView.vue";
 import DepartmentView from "./views/DepartmentView.vue";
-import ParticipantsComponent from "../components/ParticipantsComponent.vue"
+import ParticipantsViews from "./views/ParticipantsViews.vue"
 
 const routes = [
+    { path: '', component: MainView },
     { path: '/main', component: MainView },
-    { path: '/players', component: ParticipantsComponent },
-    { path: '/department', component: DepartmentView }
+    { path: '/players', component: ParticipantsViews },
+    { path: '/departments', component: DepartmentView }
 ]
 
 const router = createRouter({

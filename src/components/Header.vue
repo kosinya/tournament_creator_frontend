@@ -15,23 +15,17 @@ export default {
         {
           label: 'Главная',
           icon: 'pi pi-home',
-          command: () => {
-            router.push('/main')
-          }
+          link: '/main'
         },
         {
           label: 'Общая таблица',
           icon: 'pi pi-list',
-          command: () => {
-            router.push('/players')
-          }
+          link: '/players'
         },
         {
           label: 'Подзраделения',
           icon: 'pi pi-building-columns',
-          command: () => {
-            router.push('/department')
-          }
+          link: '/departments'
         }
       ]
     }
@@ -49,10 +43,10 @@ export default {
 <template>
 
 <header class="bg-gray-900 p-3">
-  <div class="flex justify-content-center bg-gray-100 border-round-xl border-transparent">
+  <div class="flex justify-content-center bg-gray-200 border-round-xl border-transparent">
     <Menubar class="bg-transparent border-transparent w-full" :model="items">
       <template #item="{item}">
-          <RouterLink to="item.command" class="flex px-4 py-2 items-center cursor-pointer hover:text-white
+          <RouterLink :to="item.link" class="flex px-4 py-2 items-center cursor-pointer hover:text-white
                           active:bg-black-alpha-10 text-gray-900 no-underline">
             <span :class="item.icon" />
             <span class="ml-2">{{ item.label }}</span>
