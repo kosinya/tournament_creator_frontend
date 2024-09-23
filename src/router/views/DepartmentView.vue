@@ -34,7 +34,8 @@ export default {
   <div class="flex w-full h-screen justify-content-start align-items-start">
     <div class="flex flex-column ml-3 p-3 bg-gray-200 border-gray-200 border-round-xl">
       <DataTable v-model:selection="selectedDepartment" :value="allDepartments" selectionMode="single" datakey="id"
-                 v-show="true" :metaKeySelection="true" columnResizeMode="expand" tableStyle="min-width:60rem;">
+                 v-show="true" :metaKeySelection="true" columnResizeMode="expand" tableStyle="min-width:60rem;"
+                 scrollable scrollHeight="35rem">
         <Column field="id" header="Код"></Column>
         <Column field="name" header="Подразделение"></Column>
       </DataTable>

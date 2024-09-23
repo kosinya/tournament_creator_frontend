@@ -8,92 +8,6 @@ export default {
   data() {
     return {
       label: "Название лиги",
-      players: [
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'B',
-        },
-        {
-          code:'dffbf',
-          name:'better',
-          category:'Fitness',
-          score: 10,
-          group_name: 'A',
-        },
-        {
-          code:'dffbf',
-          name:'cool',
-          category:'Fitness',
-          score: 8,
-          group_name: 'A',
-        },
-        {
-          code:'dffbf',
-          name:'hey',
-          category:'Fitness',
-          score: 4,
-          group_name: 'A',
-        },
-        {
-          code:'dffbf',
-          name:'hey',
-          category:'Fitness',
-          score: 4,
-          group_name: 'B',
-        },
-        {
-          code:'dffbf',
-          name:'hey',
-          category:'Fitness',
-          score: 4,
-          group_name: 'C',
-        },
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'B',
-        },
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'C',
-        },
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'C',
-        },
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'D',
-        },
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'D',
-        },
-        {
-          code:'dffbf',
-          name:'dfbdb',
-          category:'Fitness',
-          score: 7,
-          group_name: 'D',
-        },
-      ],
     }
   },
   components: {
@@ -127,7 +41,7 @@ export default {
       <Splitter class="bg-transparent flex p-3 h-full min-h-0 border-transparent">-->
         <SplitterPanel class="flex items-center justify-center">
           <ScrollPanel>
-            <GroupsComponent v-bind:players="this.players" v-bind:n_group=4 />
+            <GroupsComponent v-if="currentLeague !== null"/>
           </ScrollPanel>
         </SplitterPanel>
         <SplitterPanel class="flex items-center justify-center">   Что-то</SplitterPanel>

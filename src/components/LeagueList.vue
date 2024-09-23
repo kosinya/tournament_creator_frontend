@@ -27,13 +27,14 @@ export default {
   methods: {
     onRowSelected() {
       this.$store.dispatch('set_current_league', this.selectedLeague);
+      this.$store.dispatch('getAllGroups', this.selectedLeague.league_id);
     }
   },
   watch: {
     currentTournament(value) {
       this.selectedLeague = null;
       this.$store.dispatch('set_current_league', null);
-    }
+    },
   }
 }
 </script>

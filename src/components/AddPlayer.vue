@@ -18,7 +18,7 @@ export default {
       newPlayer: {
         surname:'',
         name:'',
-        patronymic:'-',
+        patronymic:'',
         sex:'Муж.',
         department_id: null,
       }
@@ -70,11 +70,11 @@ export default {
       <label><p class="font-semibold">Пол участника</p></label>
       <div class="flex items-center">
         <RadioButton v-model="newPlayer.sex"  name="st" value="Муж." />
-        <label class="ml-2">муж</label>
+        <label class="ml-2">муж.</label>
       </div>
       <div class="flex items-center">
         <RadioButton v-model="newPlayer.sex"  name="st" value="Жен." />
-        <label class="ml-2">жен</label>
+        <label class="ml-2">жен.</label>
       </div>
     </div>
 
@@ -82,7 +82,8 @@ export default {
       <Button type="button" severity="secondary" class="border-round-lg" @click="cancel">
         <p class="font-normal">Отмена</p>
       </Button>
-      <Button type="button" class="border-round-lg" v-if="(newPlayer.name != '')&&(newPlayer.surname != '')&&(newPlayer.department_id != null)" @click="createNewPlayer">
+      <Button type="button" class="border-round-lg" v-if="(newPlayer.name !== '')&&(newPlayer.surname !== '')&&
+      (newPlayer.department_id !== null)" @click="createNewPlayer">
         <p class="font-normal">Сохранить</p>
       </Button>
       <Button type="button" class="border-round-lg" disabled v-else>
