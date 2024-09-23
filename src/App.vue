@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-gray-900 max-w-screen max-h-full">
+  <div class="bg-gray-900 max-w-screen max-h-screen overflow-auto">
     <Header></Header>
     <RouterView />
   </div>

@@ -43,7 +43,7 @@ export default {
       } else {
         this.icon = "pi pi-angle-double-left"
       }
-      console.log(this.icon)
+      //console.log(this.icon)
     }
   },
   mounted() {

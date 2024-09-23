@@ -2,7 +2,7 @@ import {groupApi} from "../../api/api_routes/group.js";
 
 export const group = {
     state: () => ({
-        groups: null
+        groups: []
     }),
     getters: {
         GET_GROUPS: state => {
@@ -15,10 +15,9 @@ export const group = {
         }
     },
     actions: {
-        getAllGroups: (context, l_id) => {
+        setGroups: (context, l_id) => {
             groupApi.getAllGroups(l_id).then(response => {
                 context.commit('SET_GROUPS', response.data);
-                console.log(response.data);
             })
         }
     }

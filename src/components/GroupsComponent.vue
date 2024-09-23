@@ -10,40 +10,45 @@ export default {
     ColumnGroup,
     Row,
   },
-  props: {
-    n_group: Number,
-    players: Array,
-  },
   data() {
     return{
       list: {},
     }
   },
   methods: {
-    parse() {
+    parse(data, n_groups) {
+      console.log(n_groups)
       let dictionary = {};
       let liters = ['A', "B", "C", "D", "E", "F", "G", "H"];
-      for(let i = 0; i < this.n_group; i++){
+      for(let i = 0; i < n_groups; i++) {
         dictionary[liters[i]] = []
-        this.players.forEach(function(player) {
-          if (player.group_name === liters[i]){
-            dictionary[liters[i]].push(player);
+        for(let j = 0; j < 12; j++) {
+          if (data[j].group_name === liters[i]) {
+            dictionary[liters[i]].push(data[j])
           }
-        });
-
+        }
       }
       return dictionary;
     }
   },
-  beforeMount() {
-    this.list = this.parse()
-  }
+  computed: {
+    currentLeague() {
+      return this.$store.getters["GET_CURRENT_LEAGUE"];
+    },
+    allGroups() {
+      if (this.currentLeague === null) {
+        return {}
+      }
+      let data = this.$store.getters["GET_GROUPS"];
+      return this.parse(data, this.currentLeague.n_groups);
+    }
+  },
 }
 </script>
 
 <template>
   <div class="flex flex-wrap gap-2 bg-gray-200">
-    <DataTable v-for="i in list" :value="i" showGridlines sortField="score" :sortOrder="-1"
+    <DataTable v-for="i in allGroups" :value="i" showGridlines sortField="score" :sortOrder="-1"
                style="min-width: fit-content; max-width: 50%;"
                class="flex flex-column border-1 bg-white border-white border-round-xl p-2" columnResizeMode="expand">
       <template #header>

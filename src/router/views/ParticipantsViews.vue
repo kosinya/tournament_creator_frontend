@@ -39,7 +39,7 @@ export default {
 
 <template>
   <div class="flex w-full h-screen justify-content-start align-items-start">
-    <div class="flex flex-column ml-3 p-3 bg-gray-200 border-gray-200 border-round-xl">
+    <div class="flex flex-column ml-3 p-3 bg-gray-200 border-gray-200 border-round-xl ">
       <DataTable v-model:selection="selectedPlayer" :value="playersList" scrollable scrollHeight="35rem"
                  selectionMode="single" datakey="player_id" class="h-full"
                  :metaKeySelection="true" tableStyle="min-width:60rem; max-width: full;">

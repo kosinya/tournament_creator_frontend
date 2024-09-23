@@ -3,7 +3,7 @@ import {tournamentList} from "./modules/tournament.js";
 import {league} from "./modules/laegues.js";
 import {department} from "./modules/department.js";
 import {player} from "./modules/player.js";
-import {group} from "./modules/groups.js";
+import {group} from "./modules/group.js";
 
 
 export const store = new Vuex.Store({
