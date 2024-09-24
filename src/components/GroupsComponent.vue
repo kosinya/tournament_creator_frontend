@@ -17,12 +17,12 @@ export default {
   },
   methods: {
     parse(data, n_groups) {
-      console.log(n_groups)
+      //console.log(n_groups)
       let dictionary = {};
       let liters = ['A', "B", "C", "D", "E", "F", "G", "H"];
       for(let i = 0; i < n_groups; i++) {
         dictionary[liters[i]] = []
-        for(let j = 0; j < 12; j++) {
+        for(let j = 0; j < data.length; j++) {
           if (data[j].group_name === liters[i]) {
             let player = data[j];
             player["FIO"] = data[j].surname + ' ' + data[j].name[0] + '.';
@@ -42,6 +42,7 @@ export default {
         return {}
       }
       let data = this.$store.getters["GET_GROUPS"];
+      console.log(data);
       return this.parse(data, this.currentLeague.n_groups);
     }
   },
@@ -49,13 +50,13 @@ export default {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2 bg-gray-200">
+  <div v-if="allGroups" class="flex flex-wrap gap-2 bg-gray-200">
     <DataTable v-for="i in allGroups" :value="i" showGridlines sortField="score" :sortOrder="-1"
-               style="min-width: fit-content; max-width: 50%;"
+               style="min-width: 300px; max-width: 300px;"
                class="flex flex-column border-1 bg-white border-white border-round-xl p-2" columnResizeMode="expand">
       <template #header>
         <div class="flex justify-between font-semibold">
-          Группа {{i[0].group_name}}
+          Группа {{i.at(0).group_name}}
         </div>
       </template>
       <Column header="№">

@@ -12,5 +12,12 @@ export const leagueApi = {
     },
     deletePlayer(l_id, player_id) {
         return instance.put(`/leagues/${l_id}/`, null,{params: {player_id: player_id}});
+    },
+    addPlayers(l_id, players) {
+        players = players.join(',')
+        return instance.put(`/leagues/${l_id}/players`, null, {params: {player_ids: players}});
+    },
+    draw(l_id) {
+        return instance.post(`leagues/${l_id}/draw`);
     }
 }

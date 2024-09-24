@@ -11,6 +11,7 @@ import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Button  from "primevue/button";
 import DrawComponent from "./DrawComponent.vue";
+import GroupMatches from "./GroupMatches.vue";
 
 
 export default {
@@ -31,7 +32,8 @@ export default {
     Step,
     StepPanels,
     Button,
-    DrawComponent
+    DrawComponent,
+    GroupMatches
   },
   computed: {
     currentLeague() {
@@ -73,25 +75,31 @@ export default {
               </div>
             </div>
             <div class="flex pt-6 justify-end bg-gray-200">
-              <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('2')" />
+              <Button label="Следующий этап" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('2')" />
             </div>
           </StepPanel>
           <StepPanel v-slot="{ activateCallback }" value="2">
             <div class="flex flex-col min-h-0 h-full w-full bg-gray-200">
 
-                <Splitter class="bg-transparent flex p-2 min-h-full min-h-0 border-transparent">
+                <Splitter class="bg-transparent flex p-2 min-h-full min-h-0 w-full border-transparent">
                   <SplitterPanel class="flex items-center justify-center">
                     <ScrollPanel>
                       <GroupsComponent v-if="groups" />
                     </ScrollPanel>
                   </SplitterPanel>
-                  <SplitterPanel class="flex items-center justify-center">   Матчи ехуууу</SplitterPanel>
+                  <SplitterPanel class="flex items-center justify-center">
+                    <GroupMatches />
+                  </SplitterPanel>
                 </Splitter>
 
             </div>
-            <div class="flex pt-3 justify-between bg-gray-200">
-              <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')" />
-              <Button label="Next" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
+            <div class="flex pt-3 gap-3 justify-between bg-gray-200">
+              <div class="flex align-items-center justify-content-center mr-2">
+                <Button label="Прошлый этап" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')"/>
+              </div>
+              <div class="flex align-items-center justify-content-center mr-2">
+                <Button label="Следующий этап" icon="pi pi-arrow-right" iconPos="right" @click="activateCallback('3')" />
+              </div>
             </div>
           </StepPanel>
           <StepPanel v-slot="{ activateCallback }" value="3">
@@ -99,7 +107,7 @@ export default {
               <div class="border-2 border-dashed border-surface-200 dark:border-surface-700 rounded bg-surface-50 dark:bg-surface-950 flex-auto flex justify-center items-center font-medium">Content III</div>
             </div>
             <div class="pt-6">
-              <Button label="Back" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
+              <Button label="Прошлый этап" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
             </div>
           </StepPanel>
         </StepPanels>

@@ -36,6 +36,13 @@ export const league = {
             // console.log(filteredPlayers);
             state.leagues[index].players = filteredPlayers.join(',');
             // console.log(state.leagues[index].players);
+        },
+        ADD_PLAYERS(state, payload) {
+            let index = state.leagues.findIndex(league => league.league_id === payload.l_id)
+            let players = state.leagues[index].players.split(',').map(Number)
+            let new_players = players.concat(payload.players);
+            console.log(new_players);
+            state.leagues[index].players = new_players.join(',');
         }
     },
     actions: {
@@ -60,6 +67,11 @@ export const league = {
         deletePlayer(context, payload) {
             leagueApi.deletePlayer(payload.l_id, payload.player_id).then(() => {
                 context.commit('DELETE_PLAYER', payload);
+            })
+        },
+        addPlayers(context, payload) {
+            leagueApi.addPlayers(payload.l_id, payload.players).then(() => {
+                context.commit('ADD_PLAYERS', payload);
             })
         }
     }

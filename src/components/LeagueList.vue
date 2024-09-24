@@ -38,8 +38,10 @@ export default {
     selectedLeague(value) {
       if (value === null) {
         this.$store.dispatch('setGroups', []);
+        this.$store.dispatch('getGroupMatches', []);
       } else {
         this.$store.dispatch('setGroups', this.selectedLeague.league_id);
+        this.$store.dispatch('getGroupMatches', this.selectedLeague.league_id);
       }
     }
   }

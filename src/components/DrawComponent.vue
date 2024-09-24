@@ -3,6 +3,10 @@ import Listbox from 'primevue/listbox';
 import CreateNewLeague from "./CreateNewLaegue.vue";
 import LeagueDelete from "./LeagueDelete.vue";
 import DeletePlayerFromLeague from "./DeletePlayerFromLeague.vue";
+import AddPlayerToLeague from "./AddPlayerToLeague.vue";
+
+import Button from "primevue/button";
+import {leagueApi} from "../api/api_routes/league.js";
 
 export default {
   data() {
@@ -13,7 +17,9 @@ export default {
   components: {
     LeagueDelete, CreateNewLeague,
     Listbox,
-    DeletePlayerFromLeague
+    DeletePlayerFromLeague,
+    AddPlayerToLeague,
+    Button
   },
   computed: {
     currentLeague() {
@@ -41,7 +47,11 @@ export default {
       }
       return result;
     }
-
+  },
+  methods: {
+    draw() {
+      leagueApi.draw(this.currentLeague.league_id);
+    }
   }
 }
 </script>
@@ -62,7 +72,10 @@ export default {
         <DeletePlayerFromLeague v-bind:current="selectedPlayer"></DeletePlayerFromLeague>
       </div>
       <div class="flex align-items-center justify-content-center mr-2">
-        аа
+        <AddPlayerToLeague />
+      </div>
+      <div class="flex align-items-center justify-content-center mr-2">
+        <Button label="Жеребьевка" severity="warn" class="border-round-lg" @click="draw"/>
       </div>
     </div>
   </div>
