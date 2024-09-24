@@ -24,8 +24,18 @@ export const league = {
             state.leagues.push(value);
         },
         DELETE_LEAGUE(state, id) {
-          let index = state.leagues.findIndex(league => league.league_id === id);
-          state.leagues.splice(index, 1);
+            let index = state.leagues.findIndex(league => league.league_id === id);
+            state.leagues.splice(index, 1);
+        },
+        DELETE_PLAYER(state, payload) {
+            let index = state.leagues.findIndex(league => league.league_id === payload.l_id)
+            // console.log('index: ', index, " league: ", state.leagues[index]);
+            let players = state.leagues[index].players.split(',').map(Number)
+            // console.log(players);
+            let filteredPlayers = players.filter(player => player !== payload.player_id)
+            // console.log(filteredPlayers);
+            state.leagues[index].players = filteredPlayers.join(',');
+            // console.log(state.leagues[index].players);
         }
     },
     actions: {
@@ -45,6 +55,11 @@ export const league = {
         deleteLeague(context, id) {
             leagueApi.deleteLeague(id).then(() => {
                 context.commit('DELETE_LEAGUE', id);
+            })
+        },
+        deletePlayer(context, payload) {
+            leagueApi.deletePlayer(payload.l_id, payload.player_id).then(() => {
+                context.commit('DELETE_PLAYER', payload);
             })
         }
     }

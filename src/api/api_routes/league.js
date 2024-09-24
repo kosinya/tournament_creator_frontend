@@ -9,5 +9,8 @@ export const leagueApi = {
     },
     deleteLeague(l_id) {
         return instance.delete(`leagues/${l_id}`);
+    },
+    deletePlayer(l_id, player_id) {
+        return instance.put(`/leagues/${l_id}/`, null,{params: {player_id: player_id}});
     }
 }

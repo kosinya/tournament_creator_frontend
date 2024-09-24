@@ -10,6 +10,7 @@ import StepItem from 'primevue/stepitem';
 import Step from 'primevue/step';
 import StepPanel from 'primevue/steppanel';
 import Button  from "primevue/button";
+import DrawComponent from "./DrawComponent.vue";
 
 
 export default {
@@ -29,7 +30,8 @@ export default {
     StepItem,
     Step,
     StepPanels,
-    Button
+    Button,
+    DrawComponent
   },
   computed: {
     currentLeague() {
@@ -55,19 +57,19 @@ export default {
   <div class="flex justify-content-start align-items-start h-full w-full pb-3">
     <div class="flex flex-column mx-3 p-3 bg-gray-200 border-gray-200 border-round-xl h-full w-full">
 
-      <div class="text-xl font-semibold ">{{label}}</div>
+      <div class="text-xl font-semibold mb-2">{{label}}</div>
 
-      <Stepper value="1" class="flex flex-column h-full overflow-auto">
+      <Stepper value="1" class="flex flex-column h-full overflow-y-scroll">
         <StepList>
-          <Step value="1">Header I</Step>
-          <Step value="2">Header II</Step>
-          <Step value="3">Header III</Step>
+          <Step value="1">Жеребьевка</Step>
+          <Step value="2">Групоовой этап</Step>
+          <Step value="3">Плей-офф</Step>
         </StepList>
         <StepPanels>
           <StepPanel v-slot="{ activateCallback }" value="1">
-            <div class="flex flex-col h-48">
+            <div class="flex h-48">
               <div class="border-0 dark:border-surface-700 rounded bg-gray-200 flex-auto flex justify-center items-center font-medium">
-
+                <DrawComponent v-if="currentLeague"/>
               </div>
             </div>
             <div class="flex pt-6 justify-end bg-gray-200">
@@ -77,7 +79,7 @@ export default {
           <StepPanel v-slot="{ activateCallback }" value="2">
             <div class="flex flex-col min-h-0 h-full w-full bg-gray-200">
 
-                <Splitter class="bg-transparent flex p-3 min-h-full min-h-0 border-transparent">
+                <Splitter class="bg-transparent flex p-2 min-h-full min-h-0 border-transparent">
                   <SplitterPanel class="flex items-center justify-center">
                     <ScrollPanel>
                       <GroupsComponent v-if="groups" />

@@ -24,7 +24,9 @@ export default {
         dictionary[liters[i]] = []
         for(let j = 0; j < 12; j++) {
           if (data[j].group_name === liters[i]) {
-            dictionary[liters[i]].push(data[j])
+            let player = data[j];
+            player["FIO"] = data[j].surname + ' ' + data[j].name[0] + '.';
+            dictionary[liters[i]].push(player)
           }
         }
       }
@@ -61,7 +63,7 @@ export default {
           {{ slotProps.index + 1 }}
         </template>
       </Column>
-      <Column field="name" header="Участник"></Column>
+      <Column field="FIO" header="Участник"></Column>
       <Column field="score" header="Очки"></Column>
     </DataTable>
   </div>

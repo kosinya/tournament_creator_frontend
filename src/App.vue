@@ -16,6 +16,10 @@ export default {
     LeagueInfo,
   },
   methods: {},
+  mounted() {
+    this.$store.dispatch("player/getAllPlayers");
+    this.$store.dispatch("getAllDepartments");
+  }
 }
 </script>
 
