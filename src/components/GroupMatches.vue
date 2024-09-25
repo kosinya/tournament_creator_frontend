@@ -67,7 +67,6 @@ export default {
         return []
       }
       let data = this.$store.getters["GET_GROUP_MATCHES"];
-      console.log(data);
       return this.parse(data, this.currentLeague.n_groups);
     }
   }
@@ -79,11 +78,14 @@ export default {
     <Listbox v-model="selectedMatches" v-for="i in allGroupMatches" :options="i" optionLabel="name"
              v-show="allGroupMatches['A'].length !== 0" class="w-full mb-2 md:w-56 border-round-lg border-gray-900"
              metaKeySelection
-             listStyle="max-height:250px" @dblclick="visible = true">
+             listStyle="" @dblclick="visible = true">
       <template #option="slotProps">
-        <div class="flex w-full">
+        <div class="flex w-full h-fit">
           <div class="flex flex-1 w-0 justify-content-center align-items-center">{{ slotProps.option.player1_surname + ' ' +  slotProps.option.player1_name}}</div>
-          <div class="flex flex-0 w-0 justify-content-center bg-green-600 py-1 px-2 text-white text-xl">{{slotProps.option.score}}</div>
+          <div class="flex flex-column flex-0 w-0 justify-content-center align-items-center bg-green-600 text-white text-xl" style="min-width: 150px;">
+            <div class="flex w-full justify-content-center">{{slotProps.option.score}}</div>
+            <div class="flex bg-green-100 text-gray-900 w-full justify-content-center px-2">{{slotProps.option.invoice_by_batch}}</div>
+          </div>
           <div class="flex flex-1 w-0 justify-content-center align-items-center">{{ slotProps.option.player2_surname + ' ' +  slotProps.option.player2_name}}</div>
         </div>
       </template>
