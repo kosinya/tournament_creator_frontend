@@ -30,8 +30,9 @@ export default {
   <Button class="border-round-lg" disabled v-else>
     <p class="font-normal">Удалить участника</p>
   </Button>
-  <Dialog v-model:visible="visible" modal header="Подтвердите действие" :style="{ width: '40rem' }">
-    <span class="text-surface-500 dark:text-surface-400 block mb-4">Вы уверены, что хотите удалить участника?</span>
+  <Dialog v-model:visible="visible" modal header="Подтвердите действие"
+          class="border-round-lg bg-gray-200" :style="{ width: '40rem' }">
+    <span class="text-surface-500 dark:text-surface-400 block mb-4">Вы уверены, что хотите удалить игрока?</span>
     <div class="flex justify-end gap-2">
       <Button class="border-round-lg" @click="visible=false">
         <p class="font-normal">Отмена</p>

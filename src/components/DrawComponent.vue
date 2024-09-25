@@ -6,12 +6,14 @@ import DeletePlayerFromLeague from "./DeletePlayerFromLeague.vue";
 import AddPlayerToLeague from "./AddPlayerToLeague.vue";
 
 import Button from "primevue/button";
+import Dialog from "primevue/dialog";
 import {leagueApi} from "../api/api_routes/league.js";
 
 export default {
   data() {
     return {
-        selectedPlayer: null
+        selectedPlayer: null,
+        visible: false
     }
   },
   components: {
@@ -19,7 +21,8 @@ export default {
     Listbox,
     DeletePlayerFromLeague,
     AddPlayerToLeague,
-    Button
+    Button,
+    Dialog
   },
   computed: {
     currentLeague() {
@@ -46,10 +49,11 @@ export default {
         }
       }
       return result;
-    }
+    },
   },
   methods: {
     draw() {
+      this.visible = false;
       leagueApi.draw(this.currentLeague.league_id);
     }
   }
@@ -61,6 +65,8 @@ export default {
   <div class="flex flex-column">
     <p class="text-xl font-semibold mb-2">Игроки лиги</p>
     <Listbox v-model="selectedPlayer" :options="addedPlayers" filter optionLabel="name"
+             empty-filter-message="Совпадений не найдено"
+             empty-message="Ни один игрок не добавлен"
              listStyle="max-height: 100%; height: 400px; min-width: 500px; max-width: 500;">
       <template #option="slotProps">
         {{slotProps.option.surname + ' ' + slotProps.option.name }}
@@ -75,7 +81,22 @@ export default {
         <AddPlayerToLeague />
       </div>
       <div class="flex align-items-center justify-content-center mr-2">
-        <Button label="Жеребьевка" severity="warn" class="border-round-lg" @click="draw"/>
+        <Button severity="warn" class="border-round-lg" @click="visible = true">
+          <p class="font-normal">Провести жеребьевку</p>
+        </Button>
+
+        <Dialog v-model:visible="visible" modal header="Жеребьевка"
+                class="border-round-lg bg-gray-200" :style="{ width: '25rem' }">
+          <span class="text-surface-500 dark:text-surface-400 block mb-4">Вы точно хотите провести жеребьевку?</span>
+          <div class="flex justify-end gap-2">
+            <Button type="button" severity="secondary" class="border-round-lg" @click="visible = false">
+              <p class="font-normal">Отмена</p>
+            </Button>
+            <Button type="button" severity="danger" class="border-round-lg" @click="draw">
+              <p class="font-normal">Подтвердить</p>
+            </Button>
+          </div>
+        </Dialog>
       </div>
     </div>
   </div>

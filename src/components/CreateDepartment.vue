@@ -35,7 +35,8 @@ export default {
     <p class="font-normal">Добавить подразделение</p>
   </Button>
 
-  <Dialog v-model:visible="visible" modal header="Добавить подразделение" :style="{ width: '30rem' }">
+  <Dialog v-model:visible="visible" modal header="Добавить подразделение"
+          class="border-round-lg bg-gray-200" :style="{ width: '30rem' }">
     <span class="text-surface-500 dark:text-surface-400 block mb-4">Заполните поля.</span>
     <div class="flex flex-column items-center gap-2 mb-4">
       <label class="font-semibold w-24">Наименование подразделения</label>

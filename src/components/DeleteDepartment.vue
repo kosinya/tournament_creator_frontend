@@ -35,7 +35,8 @@ export default {
   <Button @click="visible = true" class="border-round-lg" v-bind:disabled="disabled">
     <p class="font-normal">Удалить</p>
   </Button>
-  <Dialog v-model:visible="visible" modal header="Удалить подразделение" :style="{ width: '25rem' }">
+  <Dialog v-model:visible="visible" modal header="Удалить подразделение"
+          class="border-round-lg bg-gray-200" :style="{ width: '25rem' }">
     <span class="text-surface-500 dark:text-surface-400 block mb-4">Подтвердите действие</span>
     <div class="flex justify-end gap-2">
       <Button type="button" severity="secondary" class="border-round-lg" @click="visible = false">

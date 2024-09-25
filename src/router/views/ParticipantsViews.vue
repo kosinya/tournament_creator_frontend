@@ -40,8 +40,9 @@ export default {
 <template>
   <div class="flex w-full h-screen justify-content-start align-items-start">
     <div class="flex flex-column ml-3 p-3 bg-gray-200 border-gray-200 border-round-xl ">
+      <label class="text-xl font-semibold mb-2">Общая таблица игроков</label>
       <DataTable v-model:selection="selectedPlayer" :value="playersList" scrollable scrollHeight="35rem"
-                 selectionMode="single" datakey="player_id" class="h-full"
+                 selectionMode="single" datakey="player_id" class="h-full border-1 border-gray-900"
                  :metaKeySelection="true" tableStyle="min-width:60rem; max-width: full;">
         <Column field="surname" header="Фамилия"></Column>
         <Column field="name" header="Имя"></Column>

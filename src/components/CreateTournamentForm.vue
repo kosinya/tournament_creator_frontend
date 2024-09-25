@@ -42,7 +42,8 @@ export default {
     <p class="font-normal">Создать турнир</p>
   </Button>
 
-  <Dialog v-model:visible="visible" modal header="Создание турнира" :style="{ width: '30rem' }">
+  <Dialog v-model:visible="visible" modal header="Создание турнира"
+          class="border-round-lg bg-gray-200" :style="{ width: '30rem' }">
     <span class="text-surface-500 dark:text-surface-400 block mb-4">Введите нужную информацию.</span>
     <div class="flex flex-column items-center gap-2 mb-4">
       <label for="username" class="font-semibold w-24">Название турнира</label>

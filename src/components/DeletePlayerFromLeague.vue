@@ -27,7 +27,7 @@ export default {
   computed: {
     currentLeague() {
       return this.$store.getters['GET_CURRENT_LEAGUE'];
-    }
+    },
   },
   watch: {
     current(value) {
@@ -41,7 +41,8 @@ export default {
   <p class="font-normal">Удалить</p>
 </Button>
 
-<Dialog v-model:visible="visible" modal header="Удалить лигу" :style="{ width: '25rem' }">
+<Dialog v-model:visible="visible" modal header="Удалить лигу"
+        class="border-round-lg bg-gray-200" :style="{ width: '25rem' }">
   <span class="text-surface-500 dark:text-surface-400 block mb-4">Подтвердите действие</span>
   <div class="flex justify-end gap-2">
     <Button type="button" severity="secondary" class="border-round-lg" @click="visible = false">

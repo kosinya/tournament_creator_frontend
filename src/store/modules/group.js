@@ -12,6 +12,12 @@ export const group = {
     mutations: {
         SET_GROUPS: (state, value) => {
             state.groups = value;
+        },
+        UPDATE_GROUP: (state, payload) => {
+            let index = state.groups.findIndex(group => group.player_id === payload.winner_id &&
+            group.league_id === payload.league_id);
+            console.log(index);
+            state.groups[index].score += 2;
         }
     },
     actions: {
@@ -19,6 +25,9 @@ export const group = {
             groupApi.getAllGroups(l_id).then(response => {
                 context.commit('SET_GROUPS', response.data);
             })
+        },
+        updateGroup: (context, payload) => {
+            context.commit('UPDATE_GROUP', payload)
         }
     }
 }

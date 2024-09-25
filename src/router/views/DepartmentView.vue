@@ -33,9 +33,10 @@ export default {
 <template>
   <div class="flex w-full h-screen justify-content-start align-items-start">
     <div class="flex flex-column ml-3 p-3 bg-gray-200 border-gray-200 border-round-xl">
+      <label class="text-xl font-semibold mb-2">Подразделения</label>
       <DataTable v-model:selection="selectedDepartment" :value="allDepartments" selectionMode="single" datakey="id"
                  v-show="true" :metaKeySelection="true" columnResizeMode="expand" tableStyle="min-width:60rem;"
-                 scrollable scrollHeight="35rem">
+                 scrollable scrollHeight="35rem" class="border-1 border-gray-900">
         <Column field="id" header="Код"></Column>
         <Column field="name" header="Подразделение"></Column>
       </DataTable>

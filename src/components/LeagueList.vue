@@ -38,10 +38,12 @@ export default {
     selectedLeague(value) {
       if (value === null) {
         this.$store.dispatch('setGroups', []);
-        this.$store.dispatch('getGroupMatches', []);
+        this.$store.dispatch('getGroup' +
+            'Matches', null);
       } else {
         this.$store.dispatch('setGroups', this.selectedLeague.league_id);
         this.$store.dispatch('getGroupMatches', this.selectedLeague.league_id);
+        console.log('league_id', this.selectedLeague.league_id);
       }
     }
   }
@@ -54,6 +56,7 @@ export default {
       <label class="text-xl font-semibold mb-2">Лиги</label>
       <Listbox v-model="selectedLeague" :options="allLeagues" optionLabel="name" empty-message="Лиг не найдено"
                @change="onRowSelected" class="w-full md:w-fit border-none"
+               metaKeySelection
                listStyle="max-height:100%; min-width: 200px; max-width: 200;">
       </Listbox>
 

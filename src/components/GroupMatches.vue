@@ -2,20 +2,22 @@
 import Listbox from 'primevue/listbox';
 import Dialog from 'primevue/dialog';
 import Button from "primevue/button";
+import InputMask from 'primevue/inputmask';
 
 export default {
   data() {
     return {
       selectedMatches: null,
       winner_id: 0,
-      score: "0-0",
+      score: "",
       visible: false
     }
   },
   components: {
     Listbox,
     Dialog,
-    Button
+    Button,
+    InputMask
   },
   methods: {
     parse(data, n_groups) {
@@ -36,10 +38,23 @@ export default {
     },
     cancel() {
       this.visible = false;
-      this.score = "0-0";
+      this.score = "";
       this.winner_id = "0"
     },
     save() {
+      let payload = {};
+      payload['id'] = this.selectedMatches.match_id;
+      payload['score'] = this.score;
+      payload['league_id'] = this.selectedMatches.league_id;
+      let score_array = this.score.split('-').map(Number)
+      if (score_array[0] > score_array[1]) {
+        payload['winner_id'] = this.selectedMatches.player1_id;
+      } else {
+        payload['winner_id'] = this.selectedMatches.player2_id;
+      }
+      console.log(payload);
+      this.$store.dispatch("updateResult", payload);
+      this.$store.dispatch("updateGroup", payload);
       this.cancel()
     }
   },
@@ -62,7 +77,8 @@ export default {
 <template>
   <div class="fle flex-column w-full px-3">
     <Listbox v-model="selectedMatches" v-for="i in allGroupMatches" :options="i" optionLabel="name"
-             class="w-full mb-2 md:w-56 border-round-lg border-transparent"
+             v-show="allGroupMatches['A'].length !== 0" class="w-full mb-2 md:w-56 border-round-lg border-gray-900"
+             metaKeySelection
              listStyle="max-height:250px" @dblclick="visible = true">
       <template #option="slotProps">
         <div class="flex w-full">
@@ -74,10 +90,15 @@ export default {
     </Listbox>
   </div>
 
-  <Dialog v-model:visible="visible" modal header="Edit Profile" :style="{ width: '25rem' }">
-    <span class="text-surface-500 dark:text-surface-400 block mb-3">Update your information.</span>
+  <Dialog v-model:visible="visible" modal header="Результат матча" :style="{ width: '20%' }"
+          class="border-round-xl bg-gray-200">
 
-    <div class="flex justify-end gap-2">
+    <div class="flex justify-content-start gap-4 items-center mb-4">
+      <div class="flex align-items-center font-semibold w-24">Итоговый счет</div>
+      <InputMask id="score" v-model="score" mask="9-9" placeholder="0-0" class="flex text-xl text-center w-3"/>
+    </div>
+
+    <div class="flex justify-end gap-2 mt-5">
       <Button type="button" severity="secondary" @click="cancel" class="border-round-lg">
         <p class="font-normal">Отмена</p>
       </Button>
