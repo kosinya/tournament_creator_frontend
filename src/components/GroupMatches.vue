@@ -3,6 +3,7 @@ import Listbox from 'primevue/listbox';
 import Dialog from 'primevue/dialog';
 import Button from "primevue/button";
 import InputMask from 'primevue/inputmask';
+import InputText from "primevue/inputtext";
 
 export default {
   data() {
@@ -10,6 +11,7 @@ export default {
       selectedMatches: null,
       winner_id: 0,
       score: "",
+      score_by_batch: ["", "", ""],
       visible: false
     }
   },
@@ -17,7 +19,8 @@ export default {
     Listbox,
     Dialog,
     Button,
-    InputMask
+    InputMask,
+    InputText
   },
   methods: {
     parse(data, n_groups) {
@@ -39,12 +42,14 @@ export default {
     cancel() {
       this.visible = false;
       this.score = "";
+      this.score_by_batch = ["", "", ""]
       this.winner_id = "0"
     },
     save() {
       let payload = {};
       payload['id'] = this.selectedMatches.match_id;
       payload['score'] = this.score;
+      payload['score_by_batch'] = this.score_by_batch.join(' ')
       payload['league_id'] = this.selectedMatches.league_id;
       let score_array = this.score.split('-').map(Number)
       if (score_array[0] > score_array[1]) {
@@ -95,9 +100,17 @@ export default {
   <Dialog v-model:visible="visible" modal header="Результат матча" :style="{ width: '20%' }"
           class="border-round-xl bg-gray-200">
 
-    <div class="flex justify-content-start gap-4 items-center mb-4">
+    <div class="flex flex-column justify-content-start gap-2 mb-4">
       <div class="flex align-items-center font-semibold w-24">Итоговый счет</div>
       <InputMask id="score" v-model="score" mask="9-9" placeholder="0-0" class="flex text-xl text-center w-3"/>
+      <div class="flex flex-column gap-2 justify-content-start">
+        <div class="flex align-items-center font-semibold w-24">Счет по партиям</div>
+        <div class="flex flex-row gap-2">
+          <InputText v-model="score_by_batch[0]" placeholder="0-0" class="flex text-xl text-center w-3"/>
+          <InputText v-model="score_by_batch[1]" placeholder="0-0" class="flex text-xl text-center w-3"/>
+          <InputText v-model="score_by_batch[2]" placeholder="0-0" class="flex text-xl text-center w-3"/>
+        </div>
+      </div>
     </div>
 
     <div class="flex justify-end gap-2 mt-5">

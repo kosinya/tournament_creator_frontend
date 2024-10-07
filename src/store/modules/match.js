@@ -17,6 +17,7 @@ export const match = {
             let index = state.group_matches.findIndex(match => match.match_id === payload.id);
             state.group_matches[index].winner_id = payload.winner_id;
             state.group_matches[index].score = payload.score;
+            state.group_matches[index].invoice_by_batch = payload.score_by_batch;
         }
     },
     actions: {
@@ -26,7 +27,7 @@ export const match = {
             })
         },
         updateResult(context, payload) {
-            matchApi.updateMatchScore(payload.id, payload.winner_id, payload.score).then(response => {
+            matchApi.updateMatchScore(payload.id, payload.winner_id, payload.score, payload.score_by_batch).then(response => {
                 context.commit('UPDATE_RESULTS', payload);
             })
         }

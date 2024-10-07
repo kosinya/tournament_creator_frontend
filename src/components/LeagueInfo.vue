@@ -62,7 +62,7 @@ export default {
       <div class="text-xl font-semibold mb-2">{{label}}</div>
 
       <Stepper value="1" class="flex flex-column h-full overflow-y-scroll">
-        <StepList>
+        <StepList class="overflow-visible">
           <Step value="1">Жеребьевка</Step>
           <Step value="2">Групоовой этап</Step>
           <Step value="3">Плей-офф</Step>
