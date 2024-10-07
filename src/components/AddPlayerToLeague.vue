@@ -76,7 +76,7 @@ export default {
                filter :highlightOnSelect="false" class="w-full md:w-56" empty-filter-message="Совпадений не найдено"
                listStyle="max-height: 100%; height: 350px; min-width: 350px; max-width: 350;">
         <template #option="slotProps">
-          {{slotProps.option.surname + ' ' + slotProps.option.name }}
+          {{slotProps.option.surname + ' ' + slotProps.option.name + ' / Рейтинг: ' + slotProps.option.rating}}
         </template>
       </Listbox>
     </div>

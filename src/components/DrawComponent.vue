@@ -69,7 +69,7 @@ export default {
              empty-message="Ни один игрок не добавлен"
              listStyle="max-height: 100%; height: 400px; min-width: 500px; max-width: 500;">
       <template #option="slotProps">
-        {{slotProps.option.surname + ' ' + slotProps.option.name }}
+        {{slotProps.option.surname + ' ' + slotProps.option.name + ' / Рейтинг: ' + slotProps.option.rating }}
       </template>
     </Listbox>
 

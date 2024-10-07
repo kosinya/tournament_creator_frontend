@@ -51,7 +51,7 @@ export default {
 
 <template>
   <div v-if="allGroups" class="flex flex-wrap gap-2 bg-gray-200">
-    <DataTable v-for="i in allGroups" :value="i" showGridlines sortField="score" :sortOrder="-1"
+    <DataTable v-for="i in allGroups" :value="i" showGridlines
                style="min-width: 300px; max-width: 300px;"
                class="flex flex-column border-1 bg-white border-gray-900 border-round-xl p-2" columnResizeMode="expand">
       <template #header>
@@ -65,7 +65,8 @@ export default {
         </template>
       </Column>
       <Column field="FIO" header="Участник"></Column>
-      <Column field="score" header="Очки"></Column>
+      <Column field="score" header="О"></Column>
+      <Column field="place" header="М"></Column>
     </DataTable>
   </div>
 </template>
