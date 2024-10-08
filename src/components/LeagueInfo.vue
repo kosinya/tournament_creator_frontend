@@ -81,18 +81,24 @@ export default {
           <StepPanel v-slot="{ activateCallback }" value="2">
             <div class="flex flex-col min-h-0 h-full w-full bg-gray-200">
 
-                <Splitter class="bg-transparent flex p-2 min-h-full min-h-0 w-full border-transparent">
-                  <SplitterPanel class="flex items-center justify-center">
-                    <ScrollPanel>
-                      <GroupsComponent v-if="groups" />
-                    </ScrollPanel>
-                  </SplitterPanel>
-                  <SplitterPanel class="flex items-center justify-center">
-                    <GroupMatches />
-                  </SplitterPanel>
-                </Splitter>
+              <Splitter class="bg-transparent flex p-2 min-h-full min-h-0 w-full border-transparent">
+                <SplitterPanel class="flex items-center justify-center">
+                  <ScrollPanel>
+                    <GroupsComponent v-if="groups" />
+                  </ScrollPanel>
+                </SplitterPanel>
+                <SplitterPanel class="flex items-center justify-center">
+                  <GroupMatches />
+                </SplitterPanel>
+              </Splitter>
 
             </div>
+
+            <div class="flex gap-2 bg-gray-200">
+              <Button>Разрешить конфликтные ситуации</Button>
+              <Button>Завершить групповой этап</Button>
+            </div>
+
             <div class="flex pt-3 gap-3 justify-between bg-gray-200">
               <div class="flex align-items-center justify-content-center mr-2">
                 <Button label="Прошлый этап" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('1')"/>
