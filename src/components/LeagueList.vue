@@ -43,6 +43,7 @@ export default {
       } else {
         this.$store.dispatch('setGroups', this.selectedLeague.league_id);
         this.$store.dispatch('getGroupMatches', this.selectedLeague.league_id);
+        this.$store.dispatch('playoff/getPlayoffs', this.selectedLeague.league_id);
         console.log('league_id', this.selectedLeague.league_id);
       }
     }

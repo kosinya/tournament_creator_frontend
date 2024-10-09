@@ -12,7 +12,7 @@ import StepPanel from 'primevue/steppanel';
 import Button  from "primevue/button";
 import DrawComponent from "./DrawComponent.vue";
 import GroupMatches from "./GroupMatches.vue";
-
+import PlayoffGrid from "./PlayoffGrid.vue";
 
 export default {
   data() {
@@ -33,7 +33,8 @@ export default {
     StepPanels,
     Button,
     DrawComponent,
-    GroupMatches
+    GroupMatches,
+    PlayoffGrid
   },
   computed: {
     currentLeague() {
@@ -41,7 +42,7 @@ export default {
     },
     groups() {
       return !!this.$store.getters["GET_GROUPS"].length
-    }
+    },
   },
   watch: {
     currentLeague(value) {
@@ -109,9 +110,9 @@ export default {
             </div>
           </StepPanel>
           <StepPanel v-slot="{ activateCallback }" value="3">
-            <div class="flex flex-col h-48">
-              <div class="border-0 bg-gray-200 flex-auto flex justify-center items-center font-medium"></div>
-            </div>
+
+            <PlayoffGrid />
+
             <div class="pt-6 bg-gray-200">
               <Button label="Прошлый этап" severity="secondary" icon="pi pi-arrow-left" @click="activateCallback('2')" />
             </div>

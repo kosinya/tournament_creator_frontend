@@ -5,6 +5,7 @@ import {department} from "./modules/department.js";
 import {player} from "./modules/player.js";
 import {group} from "./modules/group.js";
 import {match} from "./modules/match.js";
+import {playoff} from "./modules/playoff.js";
 
 export const store = new Vuex.Store({
     state: {},
@@ -18,5 +19,6 @@ export const store = new Vuex.Store({
         player: player,
         group: group,
         match: match,
+        playoff: playoff,
     }
 })

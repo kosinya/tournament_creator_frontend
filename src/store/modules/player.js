@@ -1,7 +1,7 @@
 import {playerApi} from "../../api/api_routes/player.js"
 
 export const player = {
-    namespaced: true,
+        namespaced: true,
     state: () => ({
         players: null
     }),
