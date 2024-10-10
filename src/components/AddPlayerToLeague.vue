@@ -16,6 +16,9 @@ export default {
     Dialog,
     Listbox
   },
+  props: {
+    disabled: false
+  },
   methods: {
     cancel() {
       this.visible = false;
@@ -64,7 +67,7 @@ export default {
 </script>
 
 <template>
-  <Button @click="visible = true" class="border-round-lg">
+  <Button @click="visible = true" class="border-round-lg" v-bind:disabled="disabled">
     <p class="font-normal">Добавить игроков</p>
   </Button>
 

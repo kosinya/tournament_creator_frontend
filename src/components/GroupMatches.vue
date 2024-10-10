@@ -81,9 +81,9 @@ export default {
 <template>
   <div class="fle flex-column w-full px-3">
     <Listbox v-model="selectedMatches" v-for="i in allGroupMatches" :options="i" optionLabel="name"
-             v-show="allGroupMatches['A'].length !== 0" class="w-full mb-2 md:w-56 border-round-lg border-gray-900"
-             metaKeySelection
-             listStyle="" @dblclick="visible = true">
+             v-show="allGroupMatches['A'].length !== 0"
+             class="w-full mb-2 md:w-56 border-round-lg border-gray-900 animate__animated animate__backInDown"
+             metaKeySelection listStyle="" @dblclick="visible = true">
       <template #option="slotProps">
         <div class="flex w-full h-fit">
           <div class="flex flex-1 w-0 justify-content-center align-items-center">{{ slotProps.option.player1_surname + ' ' +  slotProps.option.player1_name}}</div>
@@ -126,5 +126,9 @@ export default {
 </template>
 
 <style scoped>
+
+.animate__animated.animate__backInDown {
+  --animate-duration:5s;
+}
 
 </style>

@@ -1,17 +1,23 @@
 <script>
 import OrganizationChart from 'primevue/organizationchart';
 import Select from 'primevue/select';
+import Button from "primevue/button";
 
 export default {
   data() {
     return {
       selectedPlayoff: null,
       selection: null,
+      disabled: true
     }
+  },
+  props: {
+
   },
   components: {
     OrganizationChart,
-    Select
+    Select,
+    Button
   },
   computed: {
     playoffs() {
@@ -25,7 +31,12 @@ export default {
     selectedPlayoff(value) {
       if (value !== null) {
         this.$store.dispatch("playoff/getGrid", this.selectedPlayoff.playoff_id)
+        this.selection = null;
       }
+    },
+    selection(value) {
+      this.disabled = value === null || Object.keys(value).length === 0;
+      console.log(value)
     }
   }
 
@@ -34,9 +45,9 @@ export default {
 
 <template>
   <Select v-model="selectedPlayoff" :options="playoffs" optionLabel="name" placeholder="Выберите плей-офф"
-          class="w-full md:w-56" />
+          class="w-full md:w-56"/>
 
-  <OrganizationChart v-model:selectionKeys="selection" :value="this.grid" v-if="selectedPlayoff"
+  <OrganizationChart v-model:selectionKeys="selection" :value="this.grid" v-if="selectedPlayoff && Object.keys(playoffs).length > 0"
                      selectionMode="single" class="bg-gray-200 pt-3">
     <template #default="slotProps">
       <div class="flex">
@@ -54,7 +65,9 @@ export default {
       </div>
     </template>
   </OrganizationChart>
-
+  <div class="flex pt-2 bg-gray-200">
+    <Button v-bind:disabled="disabled">Сыграть матч</Button>
+  </div>
 </template>
 
 <style scoped>

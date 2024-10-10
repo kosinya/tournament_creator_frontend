@@ -3,6 +3,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ColumnGroup from 'primevue/columngroup';
 import Row from 'primevue/row';
+import 'animate.css';
 export default {
   components: {
     DataTable,
@@ -53,7 +54,8 @@ export default {
   <div v-if="allGroups" class="flex flex-wrap gap-2 bg-gray-200">
     <DataTable v-for="i in allGroups" :value="i" showGridlines
                style="min-width: 300px; max-width: 300px;" ondblclick="console.log(this.index)"
-               class="flex flex-column border-1 bg-white border-gray-900 border-round-xl p-2" columnResizeMode="expand">
+               class="flex flex-column border-1 bg-white border-gray-900 border-round-xl p-2 animate__animated animate__backInDown"
+               columnResizeMode="expand">
       <template #header>
         <div class="flex justify-between font-semibold">
           Группа {{i.at(0).group_name}}
@@ -72,5 +74,9 @@ export default {
 </template>
 
 <style scoped>
+
+.animate__animated.animate__backInDown {
+  --animate-duration:5s;
+}
 
 </style>
