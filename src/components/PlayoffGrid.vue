@@ -47,10 +47,9 @@ export default {
             {{slotProps.node.player2_surname + ' ' + slotProps.node.player2_name}}</span>
         </div>
         <div class="flex flex-column " v-if="slotProps.node.player1_id !== -1">
-          <span class="flex justify-content-start border-1 border-gray-900 px-2 py-1 border-bottom-none border-left-none">
-            {{slotProps.node.score}}</span>
-          <span class="flex justify-content-start border-1 border-gray-900 px-2 py-1 border-left-none">
-            {{slotProps.node.invoice_by_batch}}</span>
+          <span class="flex justify-content-start align-items-center border-1 border-gray-900 px-2 py-1 border-left-none h-full">
+            {{slotProps.node.score}}
+          </span>
         </div>
       </div>
     </template>
