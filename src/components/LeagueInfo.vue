@@ -13,12 +13,23 @@ import Button  from "primevue/button";
 import DrawComponent from "./DrawComponent.vue";
 import GroupMatches from "./GroupMatches.vue";
 import PlayoffGrid from "./PlayoffGrid.vue";
+import Toast from 'primevue/toast';
+import instance from "../api/instance.js";
+import { useToast } from 'primevue/usetoast';
 
 export default {
   data() {
     return {
       label: "Название лиги",
+      disabled: false,
     }
+  },
+  setup() {
+    const toast = useToast();
+    const showError = (err) => {
+      toast.add({ severity: 'warn', summary: 'Ошибка', detail: err, life: 3000 });
+    };
+    return {showError}
   },
   components: {
     GroupsComponent,
@@ -34,7 +45,8 @@ export default {
     Button,
     DrawComponent,
     GroupMatches,
-    PlayoffGrid
+    PlayoffGrid,
+    Toast
   },
   computed: {
     currentLeague() {
@@ -48,9 +60,22 @@ export default {
     currentLeague(value) {
       if (value === null) {
         this.label = "Название лиги";
+        this.disabled = true;
       } else {
         this.label = value.name;
+        console.log(value.group_stage_completed)
+        this.disabled = value.group_stage_completed !== false;
       }
+    }
+  },
+  methods: {
+    complete_the_group_stage() {
+      instance.post(`/leagues/${this.currentLeague.league_id}/create_playoff`).then(res => {
+        this.$store.dispatch('playoff/getPlayoffs', this.currentLeague.league_id);
+        this.disabled = true;
+      }).catch(err => {
+        this.showError(err.response.data.detail);
+      })
     }
   }
 }
@@ -72,7 +97,7 @@ export default {
           <StepPanel v-slot="{ activateCallback }" value="1">
             <div class="flex h-48">
               <div class="border-0 dark:border-surface-700 rounded bg-gray-200 flex-auto flex justify-center items-center font-medium">
-                <DrawComponent v-if="currentLeague"/>
+                <DrawComponent v-if="currentLeague" v-bind:activateCallback="activateCallback"/>
               </div>
             </div>
             <div class="flex pt-6 justify-end bg-gray-200">
@@ -83,7 +108,7 @@ export default {
             <div class="flex flex-col min-h-0 h-full w-full bg-gray-200">
 
               <Splitter class="bg-transparent flex p-2 min-h-full min-h-0 w-full border-transparent">
-                <SplitterPanel class="flex items-center justify-center">
+                <SplitterPanel class="flex items-center justify-center " :size="60">
                   <ScrollPanel>
                     <GroupsComponent v-if="groups" />
                   </ScrollPanel>
@@ -97,7 +122,7 @@ export default {
 
             <div class="flex gap-2 bg-gray-200">
               <Button>Разрешить конфликтные ситуации</Button>
-              <Button>Завершить групповой этап</Button>
+              <Button v-bind:disabled="disabled" @click="complete_the_group_stage">Завершить групповой этап</Button>
             </div>
 
             <div class="flex pt-3 gap-3 justify-between bg-gray-200">

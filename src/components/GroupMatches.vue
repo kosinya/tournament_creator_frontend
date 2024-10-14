@@ -128,7 +128,7 @@ export default {
 <style scoped>
 
 .animate__animated.animate__backInDown {
-  --animate-duration:5s;
+  --animate-duration:3s;
 }
 
 </style>

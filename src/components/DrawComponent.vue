@@ -8,9 +8,8 @@ import AddPlayerToLeague from "./AddPlayerToLeague.vue";
 import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import Toast from 'primevue/toast';
-import {leagueApi} from "../api/api_routes/league.js";
+import instance from "../api/instance.js";
 import {useToast} from "primevue/usetoast";
-import {league} from "../store/modules/laegues.js";
 
 export default {
   data() {
@@ -24,9 +23,12 @@ export default {
   setup() {
     const toast = useToast();
     const drawError = () => {
-      toast.add({ severity: 'danger', summary: 'Ошибка', detail: 'Список игроков пуст либо не кратен 4', life: 3000 });
+      toast.add({ severity: 'warn', summary: 'Ошибка', detail: 'Список игроков пуст либо не кратен 4', life: 3000 });
     }
     return {drawError}
+  },
+  props: {
+    activateCallback: null
   },
   components: {
     LeagueDelete, CreateNewLeague,
@@ -69,10 +71,19 @@ export default {
   methods: {
     draw() {
       this.visible = false;
-      leagueApi.draw(this.currentLeague.league_id)
-      this.drawAnimationVisible = true;
-      setTimeout(() => this.drawAnimationVisible=false, 3200);
-      this.disabled = true;
+      instance.post(`leagues/${this.currentLeague.league_id}/draw`).then(res => {
+        this.drawAnimationVisible = true;
+        setTimeout(() => {
+          this.drawAnimationVisible=false;
+          this.activateCallback("2");
+        }, 3300);
+        this.disabled = true;
+        this.$store.dispatch("setGroups", this.currentLeague.league_id);
+        this.$store.dispatch("getGroupMatches", this.currentLeague.league_id);
+      }).catch(err => {
+        this.drawError();
+      });
+
     }
   }
 }
@@ -103,7 +114,7 @@ export default {
           <p class="font-normal">Провести жеребьевку</p>
         </Button>
 
-        <Toast class="bg-blue-200 border-round-lg"/>
+        <Toast />
         <Dialog v-model:visible="visible" modal header="Жеребьевка"
                 class="border-round-lg bg-gray-200" :style="{ width: '25rem' }">
           <span class="text-surface-500 dark:text-surface-400 block mb-4">Вы точно хотите провести жеребьевку?
