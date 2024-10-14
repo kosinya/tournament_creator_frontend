@@ -6,6 +6,9 @@ import Dialog from "primevue/dialog";
 import InputMask from 'primevue/inputmask';
 import InputText from "primevue/inputtext";
 import {matchApi} from "../api/api_routes/match.js";
+import instance from "../api/instance.js";
+import Toast from 'primevue/toast';
+import {useToast} from "primevue/usetoast";
 
 export default {
   data() {
@@ -20,8 +23,12 @@ export default {
       visible: false,
     }
   },
-  props: {
-
+  setup() {
+    const toast = useToast();
+    const drawError = (err) => {
+      toast.add({ severity: 'warn', summary: 'Ошибка', detail: err, life: 3000 });
+    }
+    return {drawError}
   },
   components: {
     OrganizationChart,
@@ -29,7 +36,8 @@ export default {
     Button,
     Dialog,
     InputMask,
-    InputText
+    InputText,
+    Toast
   },
   computed: {
     playoffs() {
@@ -40,12 +48,22 @@ export default {
     }
   },
   methods: {
-    myFunc(value) {
+    nextStage() {
+      instance.post(`/playoff/next_stage?p_id=${this.selectedPlayoff.playoff_id}`).then(res => {
+        this.$store.dispatch("playoff/getGrid", this.selectedPlayoff.playoff_id);
+      }).catch(err => {
+        this.drawError(err.response.data.detail);
+      })
+    },
+    nodeSelected(value) {
       if (value.player1_id !== -1) {
         this.selectedMatch = value;
       } else {
         this.selectedMatch = null;
       }
+    },
+    nodeUnselected(value) {
+      this.selectedMatch = null;
     },
     addMatchResult() {
       let payload = {};
@@ -68,7 +86,8 @@ export default {
       this.score = "0-0";
       this.score_by_batch = ["0-0", "0-0", "0-0"];
       this.winner_id = -1;
-    }
+    },
+
   },
   watch: {
     selectedPlayoff(value) {
@@ -80,6 +99,7 @@ export default {
     },
     playoffs(value) {
       this.selectedPlayoff = null;
+      this.selectedMatch = null;
     }
   }
 }
@@ -91,7 +111,7 @@ export default {
 
   <OrganizationChart v-model:selectionKeys="selection" :value="this.grid" v-if="selectedPlayoff && Object.keys(playoffs).length > 0"
                      selectionMode="single" class="bg-gray-200 pt-3"
-                     @node-select="nodeData => myFunc(nodeData)" @node-unselect="myFunc(null)">
+                     @node-select="nodeData => nodeSelected(nodeData)" @node-unselect="nodeUnselected(null)">
     <template #default="slotProps">
       <div class="flex">
         <div v-if="slotProps.node.player1_id !== -1" class="flex flex-column">
@@ -108,8 +128,9 @@ export default {
       </div>
     </template>
   </OrganizationChart>
-  <div class="flex pt-2 bg-gray-200">
+  <div class="flex pt-2 gap-2 bg-gray-200">
     <Button v-bind:disabled="this.selectedMatch === null" @click="visible = true">Сыграть матч</Button>
+    <Button v-bind:disabled="this.selectedPlayoff === null" @click="nextStage">Следующий этап</Button>
   </div>
   <Dialog v-model:visible="visible" modal header="Результат матча" :style="{ width: '20%' }"
           class="border-round-xl bg-gray-200">

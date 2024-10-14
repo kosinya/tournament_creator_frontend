@@ -11,7 +11,7 @@ export default {
       selectedMatches: null,
       winner_id: 0,
       score: "",
-      score_by_batch: ["", "", ""],
+      score_by_batch: ["0-0", "0-0", "0-0"],
       visible: false
     }
   },
@@ -42,7 +42,7 @@ export default {
     cancel() {
       this.visible = false;
       this.score = "";
-      this.score_by_batch = ["", "", ""]
+      this.score_by_batch = ["0-0", "0-0", "0-0"]
       this.winner_id = "0"
     },
     save() {

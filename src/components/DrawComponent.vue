@@ -104,7 +104,7 @@ export default {
 
     <div class="flex flex-row flex-wrap mt-3">
       <div class="flex align-items-center justify-content-center mr-2">
-        <DeletePlayerFromLeague v-bind:current="selectedPlayer"></DeletePlayerFromLeague>
+        <DeletePlayerFromLeague v-bind:current="selectedPlayer" v-bind:currentLeague="currentLeague"></DeletePlayerFromLeague>
       </div>
       <div class="flex align-items-center justify-content-center mr-2">
         <AddPlayerToLeague v-bind:disabled="disabled"/>

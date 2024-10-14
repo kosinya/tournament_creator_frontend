@@ -10,7 +10,8 @@ export default {
     }
   },
   props: {
-    current: null
+    current: null,
+    currentLeague: null,
   },
   components: {
     Button,
@@ -31,8 +32,17 @@ export default {
   },
   watch: {
     current(value) {
-      this.disabled = value === null;
-    }
+      console.log(this.currentLeague);
+      if (value !== null) {
+        if (this.currentLeague.draw_completed === true) {
+          this.disabled = true;
+        } else {
+          this.disabled = false;
+        }
+      } else {
+        this.disabled = true;
+      }
+    },
   }
 }
 </script>
