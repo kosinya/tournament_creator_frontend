@@ -42,6 +42,7 @@ export default {
       if (this.currentLeague === null) {
         return {}
       }
+      console.log(this.currentLeague.n_groups)
       let data = this.$store.getters["GET_GROUPS"];
       console.log(data);
       return this.parse(data, this.currentLeague.n_groups);
@@ -52,13 +53,13 @@ export default {
 
 <template>
   <div v-if="allGroups" class="flex flex-wrap gap-2 bg-gray-200">
-    <DataTable v-for="i in allGroups" :value="i" showGridlines
+    <DataTable v-for="key in Object.keys(allGroups)" :value="allGroups[key]" showGridlines
                style="min-width: 300px; max-width: 300px;" ondblclick="console.log(this.index)"
                class="flex flex-column border-1 bg-white border-gray-900 border-round-xl p-2 animate__animated animate__backInDown"
                columnResizeMode="expand">
       <template #header>
         <div class="flex justify-between font-semibold">
-          Группа {{i.at(0).group_name}}
+          Группа {{key}}
         </div>
       </template>
       <Column header="№">

@@ -22,6 +22,9 @@ export const match = {
     },
     actions: {
         getGroupMatches: (context, l_id) => {
+            if (l_id === -1) {
+                context.commit('SET_GROUP_MATCHES', null)
+            } else
             matchApi.getAllGroupMatches(l_id).then(response => {
                 context.commit('SET_GROUP_MATCHES', response.data);
             })

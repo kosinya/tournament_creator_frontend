@@ -22,6 +22,9 @@ export const group = {
     },
     actions: {
         setGroups: (context, l_id) => {
+            if (l_id === -1) {
+                context.commit('SET_GROUPS', []);
+            } else
             groupApi.getAllGroups(l_id).then(response => {
                 context.commit('SET_GROUPS', response.data);
             })

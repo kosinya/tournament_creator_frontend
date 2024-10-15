@@ -165,6 +165,7 @@ export default {
             <div class="flex gap-2 bg-gray-200">
               <Button v-bind:disabled="disabled" @click="conflict_resolution">Разрешить конфликтные ситуации</Button>
               <Button v-bind:disabled="disabled" @click="complete_the_group_stage">Завершить групповой этап</Button>
+              <Button v-bind:disabled="disabled" @click=""></Button>
             </div>
 
             <Dialog v-model:visible="visible" modal header="Разрешение конфликтных ситуаций" :style="{ width: '20%' }"

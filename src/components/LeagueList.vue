@@ -37,9 +37,8 @@ export default {
     },
     selectedLeague(value) {
       if (value === null) {
-        this.$store.dispatch('setGroups', []);
-        this.$store.dispatch('getGroup' +
-            'Matches', null);
+        this.$store.dispatch("setGroups", -1);
+        this.$store.dispatch('getGroupMatches', -1);
       } else {
         this.$store.dispatch('setGroups', this.selectedLeague.league_id);
         this.$store.dispatch('getGroupMatches', this.selectedLeague.league_id);
