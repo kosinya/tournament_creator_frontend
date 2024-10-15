@@ -15,6 +15,8 @@ import GroupMatches from "./GroupMatches.vue";
 import PlayoffGrid from "./PlayoffGrid.vue";
 import Toast from 'primevue/toast';
 import instance from "../api/instance.js";
+import Dialog from "primevue/dialog";
+import InputNumber from 'primevue/inputnumber';
 import { useToast } from 'primevue/usetoast';
 
 export default {
@@ -22,6 +24,8 @@ export default {
     return {
       label: "Название лиги",
       disabled: false,
+      visible: false,
+      groups: null,
     }
   },
   setup() {
@@ -46,7 +50,9 @@ export default {
     DrawComponent,
     GroupMatches,
     PlayoffGrid,
-    Toast
+    Toast,
+    Dialog,
+    InputNumber
   },
   computed: {
     currentLeague() {
@@ -69,6 +75,22 @@ export default {
     }
   },
   methods: {
+    parse(data, n_groups) {
+      if (data === null || data === undefined) {
+        return {}
+      }
+      let dictionary = {};
+      let liters = ['A', "B", "C", "D", "E", "F", "G", "H"];
+      for(let i = 0; i < n_groups; i++) {
+        dictionary[liters[i]] = [];
+        for(let j = 0; j < data.length; j++) {
+          if (data[j].group_name === liters[i]) {
+            dictionary[liters[i]].push(data[j])
+          }
+        }
+      }
+      return dictionary;
+    },
     complete_the_group_stage() {
       instance.post(`/leagues/${this.currentLeague.league_id}/create_playoff`).then(res => {
         this.$store.dispatch('playoff/getPlayoffs', this.currentLeague.league_id);
@@ -76,6 +98,26 @@ export default {
       }).catch(err => {
         this.showError(err.response.data.detail);
       })
+    },
+    conflict_resolution() {
+      this.visible = true;
+      this.groups = this.parse(this.$store.getters["GET_GROUPS"], this.currentLeague.n_groups);
+    },
+    cancel() {
+      this.$store.dispatch("setGroups", this.currentLeague.league_id);
+      this.visible = false;
+    },
+    save() {
+      const groups = this.$store.getters["GET_GROUPS"]
+      for (const group of groups) {
+        let flag = false
+        instance.post(`/groups?group_id=${group.id}&place=${group.place}`).then(res => {
+        }).catch(err => {
+          this.showError(err.response.data.detail);
+          flag = true
+        });
+        this.cancel()
+      }
     }
   }
 }
@@ -121,9 +163,33 @@ export default {
             </div>
 
             <div class="flex gap-2 bg-gray-200">
-              <Button>Разрешить конфликтные ситуации</Button>
+              <Button v-bind:disabled="disabled" @click="conflict_resolution">Разрешить конфликтные ситуации</Button>
               <Button v-bind:disabled="disabled" @click="complete_the_group_stage">Завершить групповой этап</Button>
             </div>
+
+            <Dialog v-model:visible="visible" modal header="Разрешение конфликтных ситуаций" :style="{ width: '20%' }"
+                    class="flex border-round-xl bg-gray-200">
+              <div v-for="key in Object.keys(this.groups)" class="flex flex-column">
+                <div class="font-semibold mt-3">Группа {{key}}</div>
+
+                <div v-for="g in this.groups[key]">
+                  <div class="flex flex-row align-items-center gap-1 justify-content-end">
+                    <div class="flex" style="min-width: 50%; max-width: 65%">{{g.surname + ' ' + g.name[0] + '.'}}</div>
+                    <InputNumber class="flex" v-model="g.place" inputId="minmax" :min="1"
+                                 :max="this.groups[key].length" fluid
+                                 style="width: 30%"/>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2 mt-5">
+                <Button type="button" severity="secondary" @click="cancel" class="border-round-lg">
+                  <p class="font-normal">Отмена</p>
+                </Button>
+                <Button type="button" @click="save" class="border-round-lg">
+                  <p class="font-normal">Сохранить результат</p>
+                </Button>
+              </div>
+            </Dialog>
 
             <div class="flex pt-3 gap-3 justify-between bg-gray-200">
               <div class="flex align-items-center justify-content-center mr-2">
