@@ -65,6 +65,13 @@ export default {
     nodeUnselected(value) {
       this.selectedMatch = null;
     },
+    playMatch() {
+      if (this.selectedMatch.type === this.selectedPlayoff.current_stage) {
+        this.visible = true;
+      } else {
+        this.drawError('Вы можете сыграть матчи только текущего этапа плей-офф')
+      }
+    },
     addMatchResult() {
       let payload = {};
       payload['id'] = this.selectedMatch.match_id;
@@ -129,7 +136,7 @@ export default {
     </template>
   </OrganizationChart>
   <div class="flex pt-2 gap-2 bg-gray-200">
-    <Button v-bind:disabled="this.selectedMatch === null" @click="visible = true">Сыграть матч</Button>
+    <Button v-bind:disabled="this.selectedMatch === null" @click="playMatch">Сыграть матч</Button>
     <Button v-bind:disabled="this.selectedPlayoff === null" @click="nextStage">Следующий этап</Button>
   </div>
   <Dialog v-model:visible="visible" modal header="Результат матча" :style="{ width: '20%' }"
