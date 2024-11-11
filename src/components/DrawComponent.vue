@@ -23,7 +23,7 @@ export default {
   setup() {
     const toast = useToast();
     const drawError = () => {
-      toast.add({ severity: 'warn', summary: 'Ошибка', detail: 'Список игроков пуст либо не кратен 4', life: 3000 });
+      toast.add({ severity: 'warn', summary: 'Ошибка', detail: 'Список игроков пуст!', life: 3000 });
     }
     return {drawError}
   },

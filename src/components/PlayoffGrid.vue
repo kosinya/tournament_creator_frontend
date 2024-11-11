@@ -63,7 +63,7 @@ export default {
       }
     },
     nodeUnselected(value) {
-      this.selectedMatch = null;git checkout --orphan latest_branch
+      this.selectedMatch = null;
     },
     playMatch() {
       if (this.selectedMatch.type === this.selectedPlayoff.current_stage) {
