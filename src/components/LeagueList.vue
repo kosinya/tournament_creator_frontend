@@ -69,6 +69,10 @@ export default {
         </div>
       </div>
     </div>
+    <div class="flex pl-3 pt-3 w-full">
+      <Button label="Выгрузить результаты" variant="primary" class="w-full border-round-lg"
+              v-bind:disabled="!selectedLeague"/>
+    </div>
   </div>
 </template>
 
